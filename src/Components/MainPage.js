@@ -1,6 +1,11 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import '../App.css';
+import Logo from '../images/Icons/tropical-storm.svg'
+import Deliver from '../images/Icons/geo-alt-fill.svg'
+import Language from '../images/Icons/globe2.svg'
+import Cart from '../images/Icons/cart.svg'
+
 function MainPage() {
   return (
     <div>
@@ -8,28 +13,36 @@ function MainPage() {
       <div className="container-fluid">
         <nav className="row navbar navbar-expand-md navbar-dark bg-dark pb-0">
           <div className="container-fluid">
-            <a className="navbar-brand px-4 " href="#">OARRMAC
-            </a>
+
+            <img src={Logo} style={{ width: "50px", height: "25px" }} alt="" className="src col-1" />
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon" />
             </button>
             <div className="collapse navbar-collapse" id="navbarCollapse">
-              <ul className="navbar-nav me-auto mb-2 mb-md-0 p-3">
+              <ul className="navbar-nav me-auto mb-2 mb-md-0 p-3 col-2 justify-content-center text-center">
                 <li className="nav-item delivery">
-                  <a className="nav-link acti   ve " aria-current="page" href="#">Delivery to</a>
+                  <a className="nav-link active" aria-current="page" href="#">
+                    <div>Delivery to</div>
+                  
+                  <img src={Deliver} style={{ width: "50px", height: "25px" }} alt="" className="src" />
+                  </a>
                 </li>
               </ul>
+              
+              
               <input className="form-control nav-item me-2" type="search" placeholder="Search" aria-label="Search" />
               <ul className="navbar-nav me-auto mb-2 mb-md-0 p-3">
-                <li className="nav-item ">
-                  <a className="nav-item navbar-brand me-auto mb-2 mb-md-0 px-3" aria-current="page" href="#">Lang</a>
+                <li className="nav-item">
+                  <a href="#">
+                    <img src={Language} style={{ width: "50px", height: "25px" }} alt="" className="src" />
+                  </a>
                 </li>
                 <li className="nav-item ">
                   <a className="nav-item navbar-brand me-auto mb-2 mb-md-0 px-3 " aria-current="page" href="#">Account</a>
                 </li>
                 <li className="nav-item ">
                   <a className="nav-item navbar-brand me-auto mb-2 mb-md-0 px-3 " href="#">
-                    Cart
+                    <img src={Cart} style={{ width: "40px", height: "40px" }} alt="" className="src" />
                   </a>
                 </li>
               </ul>
@@ -48,8 +61,8 @@ function MainPage() {
       {/*end navbar*/}
       {/*content-items-login-register,etc*/}
       <div className>
-        <div className="container-fluid bg-dark">
-          <img src={require('./images/Mainpage.jpg')} className="img-fluid" alt="Responsive image" />
+        <div className="bg-dark">
+          <img src={require('../images/Mainpage.jpg')} style={{ width: "100%" }} alt="Responsive image" />
         </div>
 
         <div className="container bg-light">
