@@ -4,11 +4,12 @@ import '../App.css';
 import Logo from '../images/Icons/tropical-storm.svg'
 import Deliver from '../images/Icons/geo-alt-fill.svg'
 import Language from '../images/Icons/globe2.svg'
-import Cartt from '../images/Icons/cart.svg'
-function Cart() {
+import Cart from '../images/Icons/cart.svg'
+import Person from '../images/Icons/person-circle.svg'
+import Google from '../images/Icons/google.svg'
+function Login() {
     return (
         <div>
-            {/*navbar*/}
             {/*navbar*/}
             <div className="container-fluid">
                 <nav className="row navbar navbar-expand-md navbar-dark bg-dark pb-0">
@@ -42,7 +43,7 @@ function Cart() {
                                 </li>
                                 <li className="nav-item ">
                                     <a className="nav-item navbar-brand me-auto mb-2 mb-md-0 px-3 " href="#">
-                                        <img src={Cartt} style={{ width: "40px", height: "40px" }} alt="" className="src" />
+                                        <img src={Cart} style={{ width: "40px", height: "40px" }} alt="" className="src" />
                                     </a>
                                 </li>
                             </ul>
@@ -59,59 +60,31 @@ function Cart() {
                 </div>
             </div>
             {/*end navbar*/}
-
-            {/*end navbar*/}
             {/*content-items-login-register,etc*/}
-            <div className='container'>
-                <div className="container bg-white pl-5 pr-5 mb-5 mt-3">
-                    <h6 className="display-4 text-center pb-0 pt-1">CART</h6>
-                    <br />
-                    <div className="row pt-1">
-                        <h6 className="col-6 text-left">DETAILS</h6>
-                        <h6 className="col-4 text-right">QUANTITY</h6>
-                        <h6 className="col-2 text-right">PRICE </h6>
-                    </div>
-                    <hr />
-                    <div className=" row " style={{ fontFamily: 'monospace' }}>
-                        <div className="col-7">
-                            <div className="row">
-                                <img src={require('../images/product.jpg')} className="col-7 img-thumbnail bg-white border-0" style={{ display: 'block' }} alt="" />
-                                <div className="col-5">
-                                    <h3>Product 1</h3>
-                                    <p>brand</p>
-                                    <p>color</p>
-                                    <p>size</p>
-                                </div>
-                            </div>
+            <div className="container ">
+                <div className="row  mx-5 px-5  justify-content-center">
+                    <form className="form-signin m-5  ">
+                        <div className="text-center mb-4">
+                            <img src={Person} style={{ width: "60px", height: "60px" }} alt="" className="src" />
+                            <h1 className="h3 mb-3 font-weight-normal">Log in</h1>
                         </div>
-                        <div className="col-3 text-right">
-                            <h4 className="display">20 </h4>
+                        <div className="form-label-group  mx-5">
+                            <input type="email" id="inputEmail" className="form-control" placeholder="Email address" required autofocus />
+                            <label htmlFor="inputEmail">Email address</label>
                         </div>
-                        <div className="col-2 text-right">
-                            <h4 className="display">100 $</h4>
+                        <div className="form-label-group  mx-5">
+                            <input type="password" id="inputPassword" className="form-control" placeholder="Password" required />
+                            <label htmlFor="inputPassword">Password</label>
                         </div>
-                    </div>
-
-                    <hr />
-                    <div className="row" style={{ fontFamily: 'monospace' }}>
-                        <div className="col-12 text-right">
-                            <h4 className="display text-dark">TOTAL:</h4>
-                            <h5 className="display text-dark">100 $
-                            </h5>
-                            <p>Shipping &amp; taxes calculated at checkout
-                            </p>
-                        </div>
-                    </div>
-                    <div className="row" style={{ fontFamily: 'monospace' }}>
-                        <div className="col-10">
-                        </div>
-                        <div className="col-2">
-                            <button className="btn btn-block btn-outline-dark bg-dark text-light">CHECK OUT</button>
-                        </div>
-                    </div>
+                        <button className="btn btn-dark form-control btn-sm " type="submit">Log in
+                        </button>
+                        <p className="text-dark text-center"><br />or</p>
+                        <button className="btn btn-dark form-control btn-sm " type="submit">
+                            <p>Continue with google   .<img src={Google} style={{ width: "20px", height: "20px" }} alt="" className="src" /></p>
+                        </button>
+                    </form>
                 </div>
             </div>
-
             {/*footer*/}
             <footer className="footer  bg-dark">
                 <div className="container">
@@ -157,4 +130,4 @@ function Cart() {
     );
 }
 
-export default Cart;
+export default Login;
