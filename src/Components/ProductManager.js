@@ -4,7 +4,10 @@ import '../App.css';
 import Logo from '../images/Icons/tropical-storm.svg'
 import Deliver from '../images/Icons/geo-alt-fill.svg'
 import Language from '../images/Icons/globe2.svg'
-import Cart from '../images/Icons/cart.svg'
+import CartIcon from '../images/Icons/cart.svg'
+import Person from '../images/Icons/person-circle.svg'
+import Google from '../images/Icons/google.svg'
+import AccountIcon from '../images/Icons/person-hearts.svg'
 
 function ProductManager() {
   return (
@@ -14,7 +17,7 @@ function ProductManager() {
         <nav className="row navbar navbar-expand-md navbar-dark bg-dark pb-0">
           <div className="container-fluid">
 
-            <img src={Logo} style={{ width: "50px", height: "25px" }} alt="" className="src col-1" />
+            <img src={Logo} style={{ width: "50px", height: "50px" }} alt="" className="src col-1" />
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon" />
             </button>
@@ -23,26 +26,23 @@ function ProductManager() {
                 <li className="nav-item delivery">
                   <a className="nav-link active" aria-current="page" href="#">
                     <div>Delivery to</div>
-
                     <img src={Deliver} style={{ width: "50px", height: "25px" }} alt="" className="src" />
                   </a>
                 </li>
               </ul>
-
-
               <input className="form-control nav-item me-2" type="search" placeholder="Search" aria-label="Search" />
               <ul className="navbar-nav me-auto mb-2 mb-md-0 p-3">
                 <li className="nav-item">
-                  <a href="#">
-                    <img src={Language} style={{ width: "50px", height: "25px" }} alt="" className="src" />
+                  <a href="#" className="nav-item navbar-brand me-auto mb-2 mb-md-0 px-3 " >
+                    <img src={Language} style={{ width: "30px", height: "30px" }} alt="" className="src" />
                   </a>
                 </li>
                 <li className="nav-item ">
-                  <a className="nav-item navbar-brand me-auto mb-2 mb-md-0 px-3 " aria-current="page" href="#">Account</a>
+                  <a className="nav-item navbar-brand me-auto mb-2 mb-md-0 px-3 " aria-current="page" href="#"><img src={AccountIcon} style={{ width: "30px", height: "30px" }} alt="" className="src" /></a>
                 </li>
                 <li className="nav-item ">
                   <a className="nav-item navbar-brand me-auto mb-2 mb-md-0 px-3 " href="#">
-                    <img src={Cart} style={{ width: "40px", height: "40px" }} alt="" className="src" />
+                    <img src={CartIcon} style={{ width: "30px", height: "30px" }} alt="" className="src" />
                   </a>
                 </li>
               </ul>
@@ -50,19 +50,16 @@ function ProductManager() {
           </div>
         </nav>
         <div className="row bg-dark">
-          <div className="col-1 px-5 pt-0 pb-2">
+          <div className="col-1 px-5 pt-0 pb-0 ">
             <label htmlFor type="button" className="col font-weight-light px-4" data-toggle="modal" data-target="#myModal2">ALL</label>
           </div>
-          <div className="col-4 px-5 pt-0 pb-2">
+          <div className="col-4 px-5 pt-0 pb-0">
             <label htmlFor type="button" className="col font-weight-light px-5" data-target="#">Today's deals</label>
           </div>
         </div>
-      </div>
+      </div >
       {/*end navbar*/}
       {/*content-items-login-register,etc*/}
-
-
-
 
       <section className="pb-5 header text-center">
         <div className="container py-5 ">

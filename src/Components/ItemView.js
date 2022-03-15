@@ -1,6 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import '../App.css';
+import Logo from '../images/Icons/tropical-storm.svg'
+import Deliver from '../images/Icons/geo-alt-fill.svg'
+import Language from '../images/Icons/globe2.svg'
+import CartIcon from '../images/Icons/cart.svg'
+import Person from '../images/Icons/person-circle.svg'
+import Google from '../images/Icons/google.svg'
+import AccountIcon from '../images/Icons/person-hearts.svg'
 function ItemView() {
     return (
         <div>
@@ -8,28 +15,33 @@ function ItemView() {
             <div className="container-fluid">
                 <nav className="row navbar navbar-expand-md navbar-dark bg-dark pb-0">
                     <div className="container-fluid">
-                        <a className="navbar-brand px-4 " href="#">OARRMAC
-                        </a>
+
+                        <img src={Logo} style={{ width: "50px", height: "50px" }} alt="" className="src col-1" />
                         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon" />
                         </button>
                         <div className="collapse navbar-collapse" id="navbarCollapse">
-                            <ul className="navbar-nav me-auto mb-2 mb-md-0 p-3">
+                            <ul className="navbar-nav me-auto mb-2 mb-md-0 p-3 col-2 justify-content-center text-center">
                                 <li className="nav-item delivery">
-                                    <a className="nav-link acti   ve " aria-current="page" href="#">Delivery to</a>
+                                    <a className="nav-link active" aria-current="page" href="#">
+                                        <div>Delivery to</div>
+                                        <img src={Deliver} style={{ width: "50px", height: "25px" }} alt="" className="src" />
+                                    </a>
                                 </li>
                             </ul>
                             <input className="form-control nav-item me-2" type="search" placeholder="Search" aria-label="Search" />
                             <ul className="navbar-nav me-auto mb-2 mb-md-0 p-3">
-                                <li className="nav-item ">
-                                    <a className="nav-item navbar-brand me-auto mb-2 mb-md-0 px-3" aria-current="page" href="#">Lang</a>
+                                <li className="nav-item">
+                                    <a href="#" className="nav-item navbar-brand me-auto mb-2 mb-md-0 px-3 " >
+                                        <img src={Language} style={{ width: "30px", height: "30px" }} alt="" className="src" />
+                                    </a>
                                 </li>
                                 <li className="nav-item ">
-                                    <a className="nav-item navbar-brand me-auto mb-2 mb-md-0 px-3 " aria-current="page" href="#">Account</a>
+                                    <a className="nav-item navbar-brand me-auto mb-2 mb-md-0 px-3 " aria-current="page" href="#"><img src={AccountIcon} style={{ width: "30px", height: "30px" }} alt="" className="src" /></a>
                                 </li>
                                 <li className="nav-item ">
                                     <a className="nav-item navbar-brand me-auto mb-2 mb-md-0 px-3 " href="#">
-                                        Cart
+                                        <img src={CartIcon} style={{ width: "30px", height: "30px" }} alt="" className="src" />
                                     </a>
                                 </li>
                             </ul>
@@ -37,14 +49,14 @@ function ItemView() {
                     </div>
                 </nav>
                 <div className="row bg-dark">
-                    <div className="col-1 px-5 pt-0 pb-2">
+                    <div className="col-1 px-5 pt-0 pb-0 ">
                         <label htmlFor type="button" className="col font-weight-light px-4" data-toggle="modal" data-target="#myModal2">ALL</label>
                     </div>
-                    <div className="col-4 px-5 pt-0 pb-2">
+                    <div className="col-4 px-5 pt-0 pb-0">
                         <label htmlFor type="button" className="col font-weight-light px-5" data-target="#">Today's deals</label>
                     </div>
                 </div>
-            </div>
+            </div >
             {/*end navbar*/}
             {/*content-items-login-register,etc*/}
             <div className>

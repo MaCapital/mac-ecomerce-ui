@@ -4,7 +4,8 @@ import '../App.css';
 import Logo from '../images/Icons/tropical-storm.svg'
 import Deliver from '../images/Icons/geo-alt-fill.svg'
 import Language from '../images/Icons/globe2.svg'
-import Cart from '../images/Icons/cart.svg'
+import CartIcon from '../images/Icons/cart.svg'
+import AccountIcon from '../images/Icons/person-hearts.svg'
 
 function MainPage() {
   return (
@@ -14,7 +15,7 @@ function MainPage() {
         <nav className="row navbar navbar-expand-md navbar-dark bg-dark pb-0">
           <div className="container-fluid">
 
-            <img src={Logo} style={{ width: "50px", height: "25px" }} alt="" className="src col-1" />
+            <img src={Logo} style={{ width: "50px", height: "50px" }} alt="" className="src col-1" />
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon" />
             </button>
@@ -23,26 +24,23 @@ function MainPage() {
                 <li className="nav-item delivery">
                   <a className="nav-link active" aria-current="page" href="#">
                     <div>Delivery to</div>
-                  
-                  <img src={Deliver} style={{ width: "50px", height: "25px" }} alt="" className="src" />
+                    <img src={Deliver} style={{ width: "50px", height: "25px" }} alt="" className="src" />
                   </a>
                 </li>
               </ul>
-              
-              
               <input className="form-control nav-item me-2" type="search" placeholder="Search" aria-label="Search" />
               <ul className="navbar-nav me-auto mb-2 mb-md-0 p-3">
                 <li className="nav-item">
-                  <a href="#">
-                    <img src={Language} style={{ width: "50px", height: "25px" }} alt="" className="src" />
+                  <a href="#" className="nav-item navbar-brand me-auto mb-2 mb-md-0 px-3 " >
+                    <img src={Language} style={{ width: "30px", height: "30px" }} alt="" className="src" />
                   </a>
                 </li>
                 <li className="nav-item ">
-                  <a className="nav-item navbar-brand me-auto mb-2 mb-md-0 px-3 " aria-current="page" href="#">Account</a>
+                  <a className="nav-item navbar-brand me-auto mb-2 mb-md-0 px-3 " aria-current="page" href="#"><img src={AccountIcon} style={{ width: "30px", height: "30px" }} alt="" className="src" /></a>
                 </li>
                 <li className="nav-item ">
                   <a className="nav-item navbar-brand me-auto mb-2 mb-md-0 px-3 " href="#">
-                    <img src={Cart} style={{ width: "40px", height: "40px" }} alt="" className="src" />
+                    <img src={CartIcon} style={{ width: "30px", height: "30px" }} alt="" className="src" />
                   </a>
                 </li>
               </ul>
@@ -50,14 +48,14 @@ function MainPage() {
           </div>
         </nav>
         <div className="row bg-dark">
-          <div className="col-1 px-5 pt-0 pb-2">
+          <div className="col-1 px-5 pt-0 pb-0 ">
             <label htmlFor type="button" className="col font-weight-light px-4" data-toggle="modal" data-target="#myModal2">ALL</label>
           </div>
-          <div className="col-4 px-5 pt-0 pb-2">
+          <div className="col-4 px-5 pt-0 pb-0">
             <label htmlFor type="button" className="col font-weight-light px-5" data-target="#">Today's deals</label>
           </div>
         </div>
-      </div>
+      </div >
       {/*end navbar*/}
       {/*content-items-login-register,etc*/}
       <div className>
@@ -66,9 +64,95 @@ function MainPage() {
         </div>
 
         <div className="container bg-light">
-          <div>
-            [frame]
+          <div className>
+            <div className="container bg-light pt-4">
+              <div>
+                <h1 className='text-center'>Clothing</h1>
+                <div className="container d-flex justify-content-center mt-4">
+                  <div className="row">
+                    <div className="col-md-3">
+                      <div className="product-wrapper mb-45 text-center">
+                        <div className="product-img"> <a href="#" data-abc="true"> <img src="https://i.imgur.com/tL7ZE46.jpg" alt="" /> </a> <span className="text-center"><i className="fa fa-rupee" /> 43,000</span>
+                          <div className="product-action">
+                            <div className="product-action-style"> <a href="#"> asdf</a> <a href="#"> <i className="fa fa-heart" /> </a> <a href="#"> <i className="fa fa-shopping-cart" /> </a> </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-md-3">
+                      <div className="product-wrapper mb-4 text-center">
+                        <div className="product-img"> <a href="#" data-abc="true"> <img src="https://i.imgur.com/lAQxXCK.jpg" alt="" /> </a> <span><i className="fa fa-rupee" /> 41,000</span>
+                          <div className="product-action">
+                            <div className="product-action-style"> <a className="action-plus" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#" data-abc="true"> <i className="fa fa-plus" /> </a> <a className="action-heart" title="Wishlist" href="#" data-abc="true"> <i className="fa fa-heart" /> </a> <a className="action-cart" title="Add To Cart" href="#" data-abc="true"> <i className="fa fa-shopping-cart" /> </a> </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-md-3">
+                      <div className="product-wrapper mb-4 text-center">
+                        <div className="product-img"> <a href="#" data-abc="true"> <img src="https://i.imgur.com/HxEEu5g.jpg" alt="" /> </a> <span><i className="fa fa-rupee" /> 33,000</span>
+                          <div className="product-action">
+                            <div className="product-action-style"> <a className="action-plus" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#" data-abc="true"> <i className="fa fa-plus" /> </a> <a className="action-heart" title="Wishlist" href="#" data-abc="true"> <i className="fa fa-heart" /> </a> <a className="action-cart" title="Add To Cart" href="#" data-abc="true"> <i className="fa fa-shopping-cart" /> </a> </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-md-3">
+                      <div className="product-wrapper mb-45 text-center">
+                        <div className="product-img"> <a href="#" data-abc="true"> <img src="https://i.imgur.com/lAQxXCK.jpg" alt="" /> </a> <span><i className="fa fa-rupee" /> 23,000</span>
+                          <div className="product-action">
+                            <div className="product-action-style"> <a className="action-plus" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#" data-abc="true"> <i className="fa fa-plus" /> </a> <a className="action-heart" title="Wishlist" href="#" data-abc="true"> <i className="fa fa-heart" /> </a> <a className="action-cart" title="Add To Cart" href="#" data-abc="true"> <i className="fa fa-shopping-cart" /> </a> </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="container d-flex justify-content-center mt-100">
+                  <div className="row">
+                    <div className="col-md-3">
+                      <div className="product-wrapper mb-45 text-center">
+                        <div className="product-img"> <a href="#" data-abc="true"> <img src="https://i.imgur.com/tL7ZE46.jpg" alt="" /> </a> <span className="text-center"><i className="fa fa-rupee" /> 43,000</span>
+                          <div className="product-action">
+                            <div className="product-action-style"> <a href="#"> asdf</a> <a href="#"> <i className="fa fa-heart" /> </a> <a href="#"> <i className="fa fa-shopping-cart" /> </a> </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-md-3">
+                      <div className="product-wrapper mb-45 text-center">
+                        <div className="product-img"> <a href="#" data-abc="true"> <img src="https://i.imgur.com/lAQxXCK.jpg" alt="" /> </a> <span><i className="fa fa-rupee" /> 41,000</span>
+                          <div className="product-action">
+                            <div className="product-action-style"> <a className="action-plus" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#" data-abc="true"> <i className="fa fa-plus" /> </a> <a className="action-heart" title="Wishlist" href="#" data-abc="true"> <i className="fa fa-heart" /> </a> <a className="action-cart" title="Add To Cart" href="#" data-abc="true"> <i className="fa fa-shopping-cart" /> </a> </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-md-3">
+                      <div className="product-wrapper mb-45 text-center">
+                        <div className="product-img"> <a href="#" data-abc="true"> <img src="https://i.imgur.com/HxEEu5g.jpg" alt="" /> </a> <span><i className="fa fa-rupee" /> 33,000</span>
+                          <div className="product-action">
+                            <div className="product-action-style"> <a className="action-plus" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#" data-abc="true"> <i className="fa fa-plus" /> </a> <a className="action-heart" title="Wishlist" href="#" data-abc="true"> <i className="fa fa-heart" /> </a> <a className="action-cart" title="Add To Cart" href="#" data-abc="true"> <i className="fa fa-shopping-cart" /> </a> </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-md-3">
+                      <div className="product-wrapper mb-45 text-center">
+                        <div className="product-img"> <a href="#" data-abc="true"> <img src="https://i.imgur.com/lAQxXCK.jpg" alt="" /> </a> <span><i className="fa fa-rupee" /> 23,000</span>
+                          <div className="product-action">
+                            <div className="product-action-style"> <a className="action-plus" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#" data-abc="true"> <i className="fa fa-plus" /> </a> <a className="action-heart" title="Wishlist" href="#" data-abc="true"> <i className="fa fa-heart" /> </a> <a className="action-cart" title="Add To Cart" href="#" data-abc="true"> <i className="fa fa-shopping-cart" /> </a> </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+
         </div>
       </div>
       {/*footer*/}
@@ -95,16 +179,16 @@ function MainPage() {
               <div className="container">
                 <h4>Shop by department</h4>
                 <ul className="shop_departmen_modal" style={{ listStyle: 'none' }}>
-                  <li><label className="text-black " htmlFor type="button">Clothing</label>
+                  <li><label className="text-dark" htmlFor type="button">Clothing</label>
                     <div>
                     </div></li>
-                  <li><label className="text-black" htmlFor type="button">Shoes</label></li>
+                  <li><label className="text-dark" htmlFor type="button">Shoes</label></li>
                 </ul>
                 <hr className="text-black-50" />
                 <h4>Help &amp; Settings</h4>
                 <ul className="help_settings_modal" style={{ listStyle: 'none' }}>
-                  <li><label className="text-black" type="button" htmlFor>Your Account</label></li>
-                  <li><label type="button" className="text-black" htmlFor>Sign in/out</label></li>
+                  <li><label className="text-dark" type="button" htmlFor>Your Account</label></li>
+                  <li><label type="button" className="text-dark" htmlFor>Sign in/out</label></li>
                 </ul>
               </div>
             </div>
@@ -112,7 +196,7 @@ function MainPage() {
         </div>
       </div>
       {/*END MODAL - ALL*/}
-    </div>
+    </div >
   );
 }
 
