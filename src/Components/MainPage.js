@@ -14,13 +14,14 @@ function MainPage() {
       <div className="container-fluid">
         <nav className="row navbar navbar-expand-md navbar-dark bg-dark pb-0">
           <div className="container-fluid">
+            <img src={Logo} style={{ width: "40px", height: "40px" }} alt="" className="src col-1" />
 
-            <img src={Logo} style={{ width: "50px", height: "50px" }} alt="" className="src col-1" />
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon" />
             </button>
+
             <div className="collapse navbar-collapse" id="navbarCollapse">
-              <ul className="navbar-nav me-auto mb-2 mb-md-0 p-3 col-2 justify-content-center text-center">
+              <ul className="navbar-nav me-auto mb-1 mb-md-0 p-2 col-2 justify-content-center text-center">
                 <li className="nav-item delivery">
                   <a className="nav-link active" aria-current="page" href="#">
                     <div>Delivery to</div>
@@ -29,7 +30,7 @@ function MainPage() {
                 </li>
               </ul>
               <input className="form-control nav-item me-2" type="search" placeholder="Search" aria-label="Search" />
-              <ul className="navbar-nav me-auto mb-2 mb-md-0 p-3">
+              <ul className="navbar-nav mx-2 mb-1 mb-md-0 p-2">
                 <li className="nav-item">
                   <a href="#" className="nav-item navbar-brand me-auto mb-2 mb-md-0 px-3 " >
                     <img src={Language} style={{ width: "30px", height: "30px" }} alt="" className="src" />
@@ -47,7 +48,7 @@ function MainPage() {
             </div>
           </div>
         </nav>
-        <div className="row bg-dark">
+        <div className="row bg-dark pb-0 mb-0">
           <div className="col-1 px-5 pt-0 pb-0 ">
             <label htmlFor type="button" className="col font-weight-light px-4" data-toggle="modal" data-target="#myModal2">ALL</label>
           </div>

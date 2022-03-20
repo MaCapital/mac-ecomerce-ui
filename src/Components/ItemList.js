@@ -22,7 +22,7 @@ function ItemList() {
                             <span className="navbar-toggler-icon" />
                         </button>
                         <div className="collapse navbar-collapse" id="navbarCollapse">
-                            <ul className="navbar-nav me-auto mb-2 mb-md-0 p-3 col-2 justify-content-center text-center">
+                            <ul className="navbar-nav me-auto mb-1 mb-md-0 p-2 col-2 justify-content-center text-center">
                                 <li className="nav-item delivery">
                                     <a className="nav-link active" aria-current="page" href="#">
                                         <div>Delivery to</div>
@@ -31,7 +31,7 @@ function ItemList() {
                                 </li>
                             </ul>
                             <input className="form-control nav-item me-2" type="search" placeholder="Search" aria-label="Search" />
-                            <ul className="navbar-nav me-auto mb-2 mb-md-0 p-3">
+                            <ul className="navbar-nav mx-2 mb-1 mb-md-0 p-2">
                                 <li className="nav-item">
                                     <a href="#" className="nav-item navbar-brand me-auto mb-2 mb-md-0 px-3 " >
                                         <img src={Language} style={{ width: "30px", height: "30px" }} alt="" className="src" />
