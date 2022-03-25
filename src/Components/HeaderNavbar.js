@@ -17,7 +17,11 @@ import { useHistory } from 'react-router-dom';
 function HeaderNavbar(props) {
     //https://stackoverflow.com/questions/29244731/react-router-how-to-manually-invoke-link
     const history = useHistory();
-    const handleOnClick = useCallback(() => history.push('/itemlist'), [history]);
+    const handleOnClick = (subcategoryId) => {history.push('/itemlist');
+        //here we execute the props.scFunction to modify the father App state 
+        //this is for itemList, to lsit by subcategoryId
+        props.scFunction(subcategoryId);
+    };
     //const [categories, setCategories] = useState([]);
     const [categorycolumn, setCategorycolumn] = useState([]);
     //const [subcategories, setSubcategories] = useState([]);
@@ -51,6 +55,7 @@ function HeaderNavbar(props) {
     //*to get subcategories 
     const handleCatModalOnClick = async (categoryId) => {
         let responseData;
+        
         await axios.get("http://localhost:8081/subcategories?category=" + categoryId)
             .then((response) => responseData = response.data);
         console.log(responseData);
@@ -64,7 +69,7 @@ function HeaderNavbar(props) {
             countersc++;
             subcategoryList.push(
                 <li key={countersc}>
-                    <label className="text-dark " htmlFor type="button" data-dismiss="modal" onClick={handleOnClick}>{subcategory.name}</label>
+                    <label className="text-dark " htmlFor type="button" data-dismiss="modal" onClick={() => handleOnClick(subcategory.subCategoryId)}>{subcategory.name}</label>
                 </li>
             )
         });

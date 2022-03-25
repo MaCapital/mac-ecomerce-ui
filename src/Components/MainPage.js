@@ -9,10 +9,11 @@ import AccountIcon from '../images/Icons/person-hearts.svg'
 import HeaderNavbar from './HeaderNavbar';
 import Footer from './Footer';
 
-function MainPage() {
+function MainPage(props) {
+
   return (
     <div>
-      <HeaderNavbar val={true} />
+      <HeaderNavbar scFunction={props.scFunction} />
       {/*content-items-login-register,etc*/}
       <div className>
         <div className="bg-dark">

@@ -6,20 +6,21 @@ import axios from 'axios';
 import ItemWrapper from './ItemWrapper';
 import HeaderNavbar from './HeaderNavbar';
 import Footer from './Footer';
-function ItemList() {
+function ItemList(props) {
     //const [items, setItems] = useState([]);
     const [column, setColumn] = useState([]);
     useEffect(() => {
+        console.log(props.sc)
         async function getData() {
             let responseData;
-            await axios.get("http://localhost:8081/items")
+            await axios.get("http://localhost:8081/items?subcategory=" + props.sc)
                 .then((response) => responseData = response.data);
             console.log(responseData);
             //setItems(responseData)
             fillItemRowAndColumns(responseData);
         }
         getData();
-    }, []);
+    }, [props.sc]);
     const fillItemRowAndColumns = (data) => {
         let columns = [];
         let counter = 0;
@@ -54,13 +55,13 @@ function ItemList() {
     return (
         <div>
             {/** navbar */}
-            <HeaderNavbar />
+            <HeaderNavbar scFunction = {props.scFunction}/>
 
             {/*content-items-login-register,etc*/}
             <div className>
                 <div className="container bg-light pt-4">
                     <div>
-                        <h1 className='text-center' data-dismiss="modal">clothing</h1>
+                        <h1 className='text-center' data-dismiss="modal">{props.sc}</h1>
                         {column}
 
                     </div>
