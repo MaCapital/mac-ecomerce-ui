@@ -7,27 +7,41 @@ import ItemWrapper from './ItemWrapper';
 import HeaderNavbar from './HeaderNavbar';
 import Footer from './Footer';
 function ItemList(props) {
+
+
     //const [items, setItems] = useState([]);
     const [column, setColumn] = useState([]);
     useEffect(() => {
         console.log(props.sc)
+
         async function getData() {
             let responseData;
-            await axios.get("http://localhost:8081/items?subcategory=" + props.sc)
-                .then((response) => responseData = response.data);
-            console.log(responseData);
-            //setItems(responseData)
-            fillItemRowAndColumns(responseData);
+            let stateSC = props.sc;
+            if (stateSC.includes('Bus:')) {
+                await axios.get("http://localhost:5000/search?text=" + props.sc)
+                    .then((response) => responseData = response.data);
+                console.log(responseData);
+                fillItemRowAndColumns(responseData);
+            } else {
+                await axios.get("http://localhost:8081/items?subcategory=" + props.sc)
+                    .then((response) => responseData = response.data);
+                console.log(responseData);
+                //setItems(responseData)
+                fillItemRowAndColumns(responseData);
+            }
+
         }
         getData();
+
     }, [props.sc]);
+
     const fillItemRowAndColumns = (data) => {
         let columns = [];
         let counter = 0;
         let row = [];
         data.forEach(item => {
             counter++;
-            row.push(<ItemWrapper name={item.name} price={item.unitPrice} key={counter} />)
+            row.push(<ItemWrapper name={item.name} price={item.unitprice} key={counter} />)
             if (counter % 4 == 0) {
                 columns.push(
                     <div key={counter} className="container justify-content-center mt-100">
@@ -52,11 +66,11 @@ function ItemList(props) {
         setColumn(columns)
     }
 
+
     return (
         <div>
             {/** navbar */}
-            <HeaderNavbar scFunction = {props.scFunction}/>
-
+            <HeaderNavbar scFunction={props.scFunction} />
             {/*content-items-login-register,etc*/}
             <div className>
                 <div className="container bg-light pt-4">

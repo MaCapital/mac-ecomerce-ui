@@ -6,6 +6,7 @@ import Deliver from '../images/Icons/geo-alt-fill.svg'
 import Language from '../images/Icons/globe2.svg'
 import CartIcon from '../images/Icons/cart.svg'
 import AccountIcon from '../images/Icons/person-hearts.svg'
+import SearchIcon from '../images/Icons/share.svg'
 import { useEffect, useState } from 'react';
 import getData from '../utils/HttpCommon';
 import axios from 'axios';
@@ -17,11 +18,13 @@ import { useHistory } from 'react-router-dom';
 function HeaderNavbar(props) {
     //https://stackoverflow.com/questions/29244731/react-router-how-to-manually-invoke-link
     const history = useHistory();
-    const handleOnClick = (subcategoryId) => {history.push('/itemlist');
+    const handleOnClick = (subcategoryId) => {
+        history.push('/itemlist');
         //here we execute the props.scFunction to modify the father App state 
         //this is for itemList, to lsit by subcategoryId
         props.scFunction(subcategoryId);
     };
+
     //const [categories, setCategories] = useState([]);
     const [categorycolumn, setCategorycolumn] = useState([]);
     //const [subcategories, setSubcategories] = useState([]);
@@ -44,8 +47,8 @@ function HeaderNavbar(props) {
             counter++;
             categoryList.push(
                 <li key={counter}>
-                    <label data-dismiss="modal" htmlFor type="button" className="col  text-dark" data-toggle="modal" data-target="#myModal3" onClick={() => { handleCatModalOnClick(category.categoryId) }}>
-                        {category.categoryName}
+                    <label data-dismiss="modal" htmlFor type="button" className="col  text-dark" data-toggle="modal" data-target="#myModal3" onClick={() => { handleCatModalOnClick(category.categoryid) }}>
+                        {category.categoryname}
                     </label>
                 </li>
             )
@@ -55,10 +58,8 @@ function HeaderNavbar(props) {
     //*to get subcategories 
     const handleCatModalOnClick = async (categoryId) => {
         let responseData;
-        
         await axios.get("http://localhost:8081/subcategories?category=" + categoryId)
             .then((response) => responseData = response.data);
-        console.log(responseData);
         fillSubCategoriesColumn(responseData);
     }
     //*rendering subcategories 
@@ -69,12 +70,29 @@ function HeaderNavbar(props) {
             countersc++;
             subcategoryList.push(
                 <li key={countersc}>
-                    <label className="text-dark " htmlFor type="button" data-dismiss="modal" onClick={() => handleOnClick(subcategory.subCategoryId)}>{subcategory.name}</label>
+                    <label className="text-dark " htmlFor type="button" data-dismiss="modal"
+                        onClick={() => handleOnClick(subcategory.subcategoryid)}>{subcategory.name}</label>
                 </li>
             )
         });
         setSubcategorycolumn(subcategoryList);
     };
+
+    const [searchBar, setSearchBar] = useState("");
+
+    const handleChange = (event) => {
+        setSearchBar(event.target.value + "");
+        //console.log(event.target.value)
+        console.log(searchBar)
+
+    }
+
+    const SearchBarOnClick = () => {
+        let searchBarSE = 'Bus  : ' + searchBar;
+        console.log(searchBarSE);
+        props.scFunction(searchBarSE)
+        history.push('/itemlist');
+    }
     return (
         <>
             {/*navbar*/}
@@ -94,7 +112,21 @@ function HeaderNavbar(props) {
                                     </a>
                                 </li>
                             </ul>
-                            <input className="form-control nav-item me-2" type="search" placeholder="Search" aria-label="Search" />
+
+                            {/**search box */}
+                            <div className="input-group mb-3">
+                                {/**text */}
+                                <input type="text" id="exporationtext" className="form-control" placeholder="Recipient's username"
+                                    aria-label="you can search products here" aria-describedby="basic-addon2"
+                                    onChange={handleChange} />
+                                {/** call to f... */}
+                                <div className="input-group-append">
+                                    <span className="input-group-text" id="basic-addon2">
+                                        <img src={SearchIcon} type="submit" onClick={() => SearchBarOnClick(searchBar)} alt=""></img>
+                                    </span>
+                                </div>
+                            </div>
+
                             <ul className="navbar-nav mx-2 mb-1 mb-md-0 p-2">
                                 <li className="nav-item">
                                     <a href="h" className="nav-item navbar-brand me-auto mb-2 mb-md-0 px-3 " >
