@@ -30,6 +30,15 @@ function HeaderNavbar(props) {
     //const [subcategories, setSubcategories] = useState([]);
     const [subcategorycolumn, setSubcategorycolumn] = useState([]);
     //*to get categories 
+    //console.log(JSON.parse(localStorage.getItem('loginData')).usertype+"")
+    const [isSeller, setIsSeller] = useState(
+        localStorage.getItem('loginData')+"" != "null" ? JSON.parse(localStorage.getItem('loginData')).usertype + "" == "2" ? true : false : false
+    )
+
+    const [isLogged, setIsLogged] = useState(
+        localStorage.getItem('loginData')+"" != "null" ? true : false
+    )
+
     useEffect(() => {
         async function getData() {
             let responseData;
@@ -38,6 +47,9 @@ function HeaderNavbar(props) {
             fillCategoriesColumns(responseData);
         }
         getData();
+        //
+        setIsSeller(localStorage.getItem('loginData')+"" != "null" ? JSON.parse(localStorage.getItem('loginData')).usertype + "" == "2" ? true : false : false)
+        setIsLogged(localStorage.getItem('loginData')+"" != "null" ? true : false)
     }, []);
     //*rendering categories 
     const fillCategoriesColumns = (data) => {
@@ -159,9 +171,11 @@ function HeaderNavbar(props) {
                                         <img src={Language} style={{ width: "30px", height: "30px" }} alt="" className="src" />
                                     </label>
                                 </li>
-                                <li className="nav-item " onClick={handleUserLink}>
+                                {isLogged == true ? (<li className="nav-item " onClick={handleUserLink}>
                                     <label type="button" className="nav-item navbar-brand me-auto mb-2 mb-md-0 px-3 " aria-current="page" href="h"><img src={AccountIcon} style={{ width: "30px", height: "30px" }} alt="" className="src" /></label>
-                                </li>
+                                </li>) : (<li className="nav-item " onClick={handleLogin}>
+                                    <label type="button" className="nav-item navbar-brand me-auto mb-2 mb-md-0 px-3 " aria-current="page" href="h"><img src={AccountIcon} style={{ width: "30px", height: "30px" }} alt="" className="src" /></label>
+                                </li>)}
                                 <li className="nav-item ">
                                     <label type="button" className="nav-item navbar-brand me-auto mb-2 mb-md-0 px-3 " href="h">
                                         <img src={CartIcon} style={{ width: "30px", height: "30px" }} alt="" className="src" />
@@ -209,12 +223,12 @@ function HeaderNavbar(props) {
                                     <li><label type="button" className="text-dark" htmlFor onClick={handleLogout} data-dismiss="modal">Sign out</label></li>
                                 </ul>
 
-                                <hr className="text-black-50" />
+                                {isSeller == true ? (<><hr className="text-black-50" />
                                 <h4>Additional Settings</h4>
                                 <ul className="help_settings_modal" style={{ listStyle: 'none' }}>
                                     <li><label data-dismiss="modal" className="text-dark" type="button" htmlFor>Administrator Options</label></li>
                                     <li><label data-dismiss="modal" className="text-dark" type="button" onClick={handleProductManager} htmlFor>Seller Options</label></li>
-                                </ul>
+                                </ul></>) : (<></>)}
                             </div>
                         </div>
                     </div>
