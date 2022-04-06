@@ -93,6 +93,16 @@ function HeaderNavbar(props) {
         props.scFunction(searchBarSE)
         history.push('/itemlist');
     }
+
+    const handleLogout = () => {
+        localStorage.removeItem('loginData');
+        //props.setLoginData(null);
+        history.push('/')
+    };
+
+    const handleSignIn = () => {
+        history.push('/login')
+    }
     return (
         <>
             {/*navbar*/}
@@ -175,7 +185,8 @@ function HeaderNavbar(props) {
                                 <h4>Help &amp; Settings</h4>
                                 <ul className="help_settings_modal" style={{ listStyle: 'none' }}>
                                     <li><label className="text-dark" type="button" htmlFor>Your Account</label></li>
-                                    <li><label type="button" className="text-dark" htmlFor>Sign in/out</label></li>
+                                    <li><label type="button" className="text-dark" htmlFor data-dismiss="modal" onClick={handleSignIn}>Sign in</label></li>
+                                    <li><label type="button" className="text-dark" htmlFor onClick={handleLogout} data-dismiss="modal">Sign out</label></li>
                                 </ul>
                             </div>
                         </div>
@@ -205,7 +216,8 @@ function HeaderNavbar(props) {
                                 <h4>Help &amp; Settings</h4>
                                 <ul className="help_settings_modal" style={{ listStyle: 'none' }}>
                                     <li><label className="text-dark" type="button" htmlFor>Your Account</label></li>
-                                    <li><label type="button" className="text-dark" htmlFor>Sign in/out</label></li>
+                                    <li><label type="button" className="text-dark" htmlFor data-dismiss="modal" onClick={handleSignIn}>Sign in</label></li>
+                                    <li><label type="button" className="text-dark" htmlFor onClick={handleLogout} data-dismiss="modal">Sign out</label></li>
                                 </ul>
                             </div>
                         </div>

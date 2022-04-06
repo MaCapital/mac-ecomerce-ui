@@ -23,19 +23,29 @@ function App() {
     setSc(scParam);
   }
 
+  //for auth
+  const [loginData, setLoginData] = useState(
+    localStorage.getItem('loginData') + "" != "undefined"
+      ? JSON.parse(localStorage.getItem('loginData'))
+      : null
+  );
+  const sLogData = async (data) => {
+    setLoginData(data);
+  }
+
   //we pass the scFunction as property for all components 
   //we pass the sc as property only to itemList
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/main">
-          <MainPage scFunction={scFunction}/>
+          <MainPage scFunction={scFunction} setLoginData={sLogData} />
         </Route>
         <Route exact path="/profile">
           <UserProfile />
         </Route>
         <Route exact path="/itemlist">
-          <ItemList scFunction={scFunction} sc={sc}/>
+          <ItemList scFunction={scFunction} sc={sc} />
         </Route>
         <Route exact path="/productman">
           <ProductManager />
@@ -50,7 +60,7 @@ function App() {
           <ItemView />
         </Route>
         <Route exact path="/login">
-          <Login />
+          <Login scFunction={scFunction} setLogingData = {sLogData} />
         </Route>
         <Route exact path="/signup">
           <Signup />

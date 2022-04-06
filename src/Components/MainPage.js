@@ -10,10 +10,10 @@ import HeaderNavbar from './HeaderNavbar';
 import Footer from './Footer';
 
 function MainPage(props) {
-
+  console.log(localStorage.getItem("loginData"))
   return (
     <div>
-      <HeaderNavbar scFunction={props.scFunction} />
+      <HeaderNavbar scFunction={props.scFunction} setLoginData={props.setLoginData}/>
       {/*content-items-login-register,etc*/}
       <div className>
         <div className="bg-dark">

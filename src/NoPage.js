@@ -8,7 +8,7 @@ function NoPage() {
 
 
   const [loginData, setLoginData] = useState(
-    localStorage.getItem('loginData')+"" != "undefined"
+    localStorage.getItem('loginData') + "" != "undefined"
       ? JSON.parse(localStorage.getItem('loginData'))
       : null
   );
@@ -19,15 +19,15 @@ function NoPage() {
 
   const handleLogin = async (googleData) => {
     console.log(googleData.tokenId)
-    const res = await axios.post("http://localhost:8081/api/google-login",  
-    {
-      headers: {
+    const res = await axios.post("http://localhost:8081/api/google-login",
+      {
+        headers: {
           'Content-Type': 'application/json',
-      },
-      
+        },
+
         token: googleData.tokenId,
-      
-  }
+
+      }
     );
     /*const res = await fetch('/api/google-login', {
       method: 'POST',
