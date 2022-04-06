@@ -97,11 +97,23 @@ function HeaderNavbar(props) {
     const handleLogout = () => {
         localStorage.removeItem('loginData');
         //props.setLoginData(null);
-        history.push('/')
+        history.push('/main')
     };
 
-    const handleSignIn = () => {
+    const handleLogin = () => {
         history.push('/login')
+    };
+
+    const handleRegister = () => {
+        history.push('/signup')
+    };
+
+    const handleUserLink = () => {
+        history.push('/profile')
+    }
+
+    const handleMain = () => {
+        history.push('/main')
     }
 
     const handleProductManager = () => {
@@ -113,7 +125,7 @@ function HeaderNavbar(props) {
             <div className="container-fluid">
                 <nav className="row navbar navbar-expand-md navbar-dark bg-dark pb-0">
                     <div className="container-fluid">
-                        <img src={Logo} style={{ width: "50px", height: "50px" }} alt="" className="src col-1" />
+                        <img type="button" onClick={handleMain} src={Logo} style={{ width: "50px", height: "50px" }} alt="" className="src col-1" />
                         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon" />
                         </button>
@@ -143,17 +155,17 @@ function HeaderNavbar(props) {
 
                             <ul className="navbar-nav mx-2 mb-1 mb-md-0 p-2">
                                 <li className="nav-item">
-                                    <a href="h" className="nav-item navbar-brand me-auto mb-2 mb-md-0 px-3 " >
+                                    <label type="button" className="nav-item navbar-brand me-auto mb-2 mb-md-0 px-3 " >
                                         <img src={Language} style={{ width: "30px", height: "30px" }} alt="" className="src" />
-                                    </a>
+                                    </label>
+                                </li>
+                                <li className="nav-item " onClick={handleUserLink}>
+                                    <label type="button" className="nav-item navbar-brand me-auto mb-2 mb-md-0 px-3 " aria-current="page" href="h"><img src={AccountIcon} style={{ width: "30px", height: "30px" }} alt="" className="src" /></label>
                                 </li>
                                 <li className="nav-item ">
-                                    <a className="nav-item navbar-brand me-auto mb-2 mb-md-0 px-3 " aria-current="page" href="h"><img src={AccountIcon} style={{ width: "30px", height: "30px" }} alt="" className="src" /></a>
-                                </li>
-                                <li className="nav-item ">
-                                    <a className="nav-item navbar-brand me-auto mb-2 mb-md-0 px-3 " href="h">
+                                    <label type="button" className="nav-item navbar-brand me-auto mb-2 mb-md-0 px-3 " href="h">
                                         <img src={CartIcon} style={{ width: "30px", height: "30px" }} alt="" className="src" />
-                                    </a>
+                                    </label>
                                 </li>
                             </ul>
                         </div>
@@ -192,7 +204,8 @@ function HeaderNavbar(props) {
                                 <h4>Help &amp; Settings</h4>
                                 <ul className="help_settings_modal" style={{ listStyle: 'none' }}>
                                     <li><label className="text-dark" type="button" htmlFor>Your Account</label></li>
-                                    <li><label type="button" className="text-dark" htmlFor data-dismiss="modal" onClick={handleSignIn}>Sign in</label></li>
+                                    <li><label type="button" className="text-dark" htmlFor data-dismiss="modal" onClick={handleLogin}>Login</label></li>
+                                    <li><label type="button" className="text-dark" htmlFor data-dismiss="modal" onClick={handleRegister}>Register</label></li>
                                     <li><label type="button" className="text-dark" htmlFor onClick={handleLogout} data-dismiss="modal">Sign out</label></li>
                                 </ul>
 
@@ -225,15 +238,7 @@ function HeaderNavbar(props) {
                                     {/* link to itemsList screen */}
                                     {subcategorycolumn}
                                 </ul>
-                                {/* help and setting button, fixed */}
-                                <hr className="text-black-50" />
-                                <h4>Help &amp; Settings</h4>
-                                <ul className="help_settings_modal" style={{ listStyle: 'none' }}>
-                                    <li><label className="text-dark" type="button" htmlFor>Your Account</label></li>
-                                    <li><label type="button" className="text-dark" htmlFor data-dismiss="modal" onClick={handleSignIn}>Sign in</label></li>
-                                    <li><label type="button" className="text-dark" htmlFor onClick={handleLogout} data-dismiss="modal">Sign out </label></li>
-                                </ul>
-
+                                
                             </div>
                         </div>
                     </div>
