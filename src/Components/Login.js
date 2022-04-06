@@ -45,13 +45,13 @@ function Login(props) {
             }
         );
         /*const res = await fetch('/api/google-login', {
-          method: 'POST',
-          body: JSON.stringify({
+        method: 'POST',
+        body: JSON.stringify({
             token: googleData.tokenId,
-          }),
-          headers: {
+        }),
+        headers: {
             'Content-Type': 'application/json',
-          },
+        },
         });*/
 
         const data = await res.rows;
@@ -60,38 +60,41 @@ function Login(props) {
         localStorage.setItem('loginData', JSON.stringify(res.data));
         history.push('/main');
     };
-    
+
     return (
         <div>
             {/*navbar*/}
             <HeaderNavbar scFunction={props.scFunction} />
             {/*end navbar*/}
             {/*content-items-login-register,etc*/}
-            <div className="container ">
-                <div className="row mb-5 mx-5 px-5  justify-content-center">
-                    <form className="form-signin m-5  ">
-                        <div className="text-center mb-4">
-                            <img src={Person} style={{ width: "100px", height: "100px" }} alt="" className="src" />
-                            <h1 className="h3 mb-3 font-weight-normal">Log in</h1>
-                        </div>
-                        
-                        <view style={{
-                            alignContent: 'center',
-                            justifyContent: 'center', // center the button
-                            // the same as the actual button
-                            paddingHorizontal: 100 // optionally add some horizontal padding for better looking
-                            , padding: "10% 10% 10% 5%"
-                        }}>
-                            <GoogleLogin style={{ justifyContent: 'center' }}
-                                clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+            <div className="container"  >
+                <div className="container  mb-5 pb-5 pt-2 mt-3"  >
+                    <div className="row mb-5 mx-5 px-5  justify-content-center">
+                        <form className="form-signin m-5  ">
+                            <div className="text-center mb-4">
+                                <img src={Person} style={{ width: "100px", height: "100px" }} alt="" className="src" />
+                                <h1 className="h3 mb-3 font-weight-normal">Log in</h1>
+                            </div>
 
-                                onSuccess={handleLogin}
-                                onFailure={handleFailure}
-                                cookiePolicy={'single_host_origin'}
-                            >Continue with Google</GoogleLogin>
-                        </view>
-                    </form>
+                            <view style={{
+                                alignContent: 'center',
+                                justifyContent: 'center', // center the button
+                                // the same as the actual button
+                                paddingHorizontal: 100 // optionally add some horizontal padding for better looking
+                                , padding: "10% 10% 10% 5%"
+                            }}>
+                                <GoogleLogin style={{ justifyContent: 'center' }}
+                                    clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+
+                                    onSuccess={handleLogin}
+                                    onFailure={handleFailure}
+                                    cookiePolicy={'single_host_origin'}
+                                >Continue with Google</GoogleLogin>
+                            </view>
+                        </form>
+                    </div>
                 </div>
+
             </div>
             {/*footer*/}
             <Footer />

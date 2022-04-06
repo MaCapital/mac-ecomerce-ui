@@ -103,6 +103,10 @@ function HeaderNavbar(props) {
     const handleSignIn = () => {
         history.push('/login')
     }
+
+    const handleProductManager = () => {
+        history.push('/productman');
+    }
     return (
         <>
             {/*navbar*/}
@@ -170,13 +174,16 @@ function HeaderNavbar(props) {
                 <div className="modal-dialog" role="document">
                     <div className="modal-content" >
                         <div className="modal-header">
-                            <button type="menu" className="close" data-dismiss="modal" aria-label="Close">
+                            <h5 className="modal-title" id="exampleModalCenterTitle">PRODUCTS</h5>
+                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
                             </button>
-                            <h5>PRODUCTS</h5>
                         </div>
+
                         <div className="modal-body">
                             <div className="container">
-                                <h4>Shop by department</h4>
+
+                                <h4>Shop by department </h4>
                                 <ul className="shop_departmen_modal" style={{ listStyle: 'none' }}>
                                     {/* rendering list of categories here */}
                                     {categorycolumn}
@@ -187,6 +194,13 @@ function HeaderNavbar(props) {
                                     <li><label className="text-dark" type="button" htmlFor>Your Account</label></li>
                                     <li><label type="button" className="text-dark" htmlFor data-dismiss="modal" onClick={handleSignIn}>Sign in</label></li>
                                     <li><label type="button" className="text-dark" htmlFor onClick={handleLogout} data-dismiss="modal">Sign out</label></li>
+                                </ul>
+
+                                <hr className="text-black-50" />
+                                <h4>Additional Settings</h4>
+                                <ul className="help_settings_modal" style={{ listStyle: 'none' }}>
+                                    <li><label data-dismiss="modal" className="text-dark" type="button" htmlFor>Administrator Options</label></li>
+                                    <li><label data-dismiss="modal" className="text-dark" type="button" onClick={handleProductManager} htmlFor>Seller Options</label></li>
                                 </ul>
                             </div>
                         </div>
@@ -201,7 +215,7 @@ function HeaderNavbar(props) {
                         <div className="modal-header">
                             <button type="menu" className="close" data-dismiss="modal" aria-label="Close">
                             </button>
-                            <h5>PRODUCTS</h5>
+                            <h5>PRODUCTS s</h5>
                         </div>
                         <div className="modal-body">
                             <div className="container">
@@ -217,8 +231,9 @@ function HeaderNavbar(props) {
                                 <ul className="help_settings_modal" style={{ listStyle: 'none' }}>
                                     <li><label className="text-dark" type="button" htmlFor>Your Account</label></li>
                                     <li><label type="button" className="text-dark" htmlFor data-dismiss="modal" onClick={handleSignIn}>Sign in</label></li>
-                                    <li><label type="button" className="text-dark" htmlFor onClick={handleLogout} data-dismiss="modal">Sign out</label></li>
+                                    <li><label type="button" className="text-dark" htmlFor onClick={handleLogout} data-dismiss="modal">Sign out </label></li>
                                 </ul>
+
                             </div>
                         </div>
                     </div>

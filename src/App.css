@@ -8,6 +8,8 @@ font-size: 13px;
 .delivery{
   font-size: 13px;
 }
+
+
 .modal-dialog {
 position: fixed;
 margin: auto;
@@ -18,6 +20,16 @@ left: 0px;
 .modal-content {
 height: 100%;
 }
+
+#myModalAdd .modal-dialog {    
+    padding: 5rem 5rem;
+    width: 100%;
+    left: 30%;    
+}
+#myModalAdd .modal-content {    
+    height: 90%;
+}
+
 
 #item_card
 
