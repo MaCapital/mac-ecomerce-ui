@@ -6,12 +6,22 @@ import HeaderNavbar from './HeaderNavbar';
 import Footer from './Footer';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-function Cart() {
+import { useHistory } from 'react-router-dom';
+function Cart(props) {
 
 
     const cartUserInfo = JSON.parse(localStorage.getItem('cartData'));
     console.log(cartUserInfo.cartid);
     const cartid = cartUserInfo.cartid;
+
+    const [total, setTotal] = useState(0);
+
+    const history = useHistory();
+    const handleOnClick = (totalVal) => {
+        console.log("the total is " + totalVal)
+        props.setPrice(totalVal);
+        history.push('/paypal');
+    };
 
     useEffect(() => {
         async function getData() {
@@ -28,10 +38,12 @@ function Cart() {
     const [details, setDetails] = useState([]);
 
     const fillCartDetailsRows = (data) => {
+        let tempTotal = 0;
         let counter = 0;
         let detailsList = [];
         data.forEach(detail => {
             counter++;
+            tempTotal = tempTotal + ((+detail.quantity) * (+detail.itemprice))
             detailsList.push(
                 //
                 <div key={counter} className=" row " style={{ fontFamily: 'monospace' }}>
@@ -54,6 +66,7 @@ function Cart() {
                 </div>
             )
         });
+        setTotal(tempTotal)
         setDetails(detailsList);
     }
 
@@ -82,7 +95,7 @@ function Cart() {
                     <div className="row" style={{ fontFamily: 'monospace' }}>
                         <div className="col-12 text-right">
                             <h4 className="display text-dark">TOTAL:</h4>
-                            <h5 className="display text-dark">2000 $
+                            <h5 className="display text-dark">{total} $
                             </h5>
                             <p>Shipping &amp; taxes calculated at checkout
                             </p>
@@ -92,7 +105,7 @@ function Cart() {
                         <div className="col-10">
                         </div>
                         <div className="col-2">
-                            <button className="btn btn-block btn-outline-dark bg-dark text-light">CHECK OUT</button>
+                            <button className="btn btn-block btn-outline-dark bg-dark text-light" onClick={() => handleOnClick(total)}>CHECK OUT</button>
                         </div>
                     </div>
                 </div>

@@ -12,6 +12,7 @@ import Login from "./Components/Login.js";
 import Signup from "./Components/Signup.js";
 
 import { useState } from "react";
+import PaypalPayiment from "./Components/PaypalPayment";
 
 function App() {
 
@@ -26,6 +27,11 @@ function App() {
   const [it, setIt] = useState("");
   const itFunction = (itParam) => {
     setIt(itParam);
+  }
+
+  const [paypalPrice, setPaypalPrice] = useState("0");
+  const setPrice = (price) => {
+    setPaypalPrice(price);
   }
 
 
@@ -50,7 +56,7 @@ function App() {
           <UserManager />
         </Route>
         <Route exact path="/cart">
-          <Cart />
+          <Cart setPrice={setPrice}/>
         </Route>
         <Route exact path="/itemview">
           <ItemView it={it} scFunction={scFunction} />
@@ -60,6 +66,9 @@ function App() {
         </Route>
         <Route exact path="/signup">
           <Signup scFunction={scFunction} />
+        </Route>
+        <Route exact path="/paypal">
+          <PaypalPayiment scFunction={scFunction} price={paypalPrice}/>
         </Route>
         <Route path="*">
           <NoPage />
