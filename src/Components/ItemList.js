@@ -41,8 +41,8 @@ function ItemList(props) {
         let row = [];
         data.forEach(item => {
             counter++;
-            row.push(<ItemWrapper name={item.name} price={item.unitprice} key={counter} />)
-            if (counter % 4 == 0) {
+            row.push(<ItemWrapper name={item.name} price={item.unitprice} key={counter} id={item.itemid} itFunction={props.itFunction} />)
+            if (counter % 4 === 0) {
                 columns.push(
                     <div key={counter} className="container justify-content-center mt-100">
                         <div key={counter} className="row">

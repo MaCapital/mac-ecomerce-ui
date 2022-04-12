@@ -32,11 +32,11 @@ function HeaderNavbar(props) {
     //*to get categories 
     //console.log(JSON.parse(localStorage.getItem('loginData')).usertype+"")
     const [isSeller, setIsSeller] = useState(
-        localStorage.getItem('loginData')+"" != "null" ? JSON.parse(localStorage.getItem('loginData')).usertype + "" == "2" ? true : false : false
+        localStorage.getItem('loginData') + "" != "null" ? JSON.parse(localStorage.getItem('loginData')).usertype + "" == "2" ? true : false : false
     )
 
     const [isLogged, setIsLogged] = useState(
-        localStorage.getItem('loginData')+"" != "null" ? true : false
+        localStorage.getItem('loginData') + "" != "null" ? true : false
     )
 
     useEffect(() => {
@@ -48,8 +48,8 @@ function HeaderNavbar(props) {
         }
         getData();
         //
-        setIsSeller(localStorage.getItem('loginData')+"" != "null" ? JSON.parse(localStorage.getItem('loginData')).usertype + "" == "2" ? true : false : false)
-        setIsLogged(localStorage.getItem('loginData')+"" != "null" ? true : false)
+        setIsSeller(localStorage.getItem('loginData') + "" != "null" ? JSON.parse(localStorage.getItem('loginData')).usertype + "" == "2" ? true : false : false)
+        setIsLogged(localStorage.getItem('loginData') + "" != "null" ? true : false)
     }, []);
     //*rendering categories 
     const fillCategoriesColumns = (data) => {
@@ -100,7 +100,7 @@ function HeaderNavbar(props) {
     }
 
     const SearchBarOnClick = () => {
-        let searchBarSE = 'Bus  : ' + searchBar;
+        let searchBarSE = 'Bus: ' + searchBar;
         console.log(searchBarSE);
         props.scFunction(searchBarSE)
         history.push('/itemlist');
@@ -130,6 +130,10 @@ function HeaderNavbar(props) {
 
     const handleProductManager = () => {
         history.push('/productman');
+    }
+
+    const handleCart = () => {
+        history.push('/cart')
     }
     return (
         <>
@@ -178,7 +182,7 @@ function HeaderNavbar(props) {
                                 </li>)}
                                 <li className="nav-item ">
                                     <label type="button" className="nav-item navbar-brand me-auto mb-2 mb-md-0 px-3 " href="h">
-                                        <img src={CartIcon} style={{ width: "30px", height: "30px" }} alt="" className="src" />
+                                        <img src={CartIcon} style={{ width: "30px", height: "30px" }} alt="" className="src" onClick={handleCart} />
                                     </label>
                                 </li>
                             </ul>
@@ -224,11 +228,11 @@ function HeaderNavbar(props) {
                                 </ul>
 
                                 {isSeller == true ? (<><hr className="text-black-50" />
-                                <h4>Additional Settings</h4>
-                                <ul className="help_settings_modal" style={{ listStyle: 'none' }}>
-                                    <li><label data-dismiss="modal" className="text-dark" type="button" htmlFor>Administrator Options</label></li>
-                                    <li><label data-dismiss="modal" className="text-dark" type="button" onClick={handleProductManager} htmlFor>Seller Options</label></li>
-                                </ul></>) : (<></>)}
+                                    <h4>Additional Settings</h4>
+                                    <ul className="help_settings_modal" style={{ listStyle: 'none' }}>
+                                        <li><label data-dismiss="modal" className="text-dark" type="button" htmlFor>Administrator Options</label></li>
+                                        <li><label data-dismiss="modal" className="text-dark" type="button" onClick={handleProductManager} htmlFor>Seller Options</label></li>
+                                    </ul></>) : (<></>)}
                             </div>
                         </div>
                     </div>
@@ -252,7 +256,7 @@ function HeaderNavbar(props) {
                                     {/* link to itemsList screen */}
                                     {subcategorycolumn}
                                 </ul>
-                                
+
                             </div>
                         </div>
                     </div>

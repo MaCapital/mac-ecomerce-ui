@@ -3,7 +3,35 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import '../App.css';
 import HeaderNavbar from './HeaderNavbar';
 import Footer from './Footer';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 function ProductManager() {
+
+  const [subcategory, setSubcategory] = useState([]);
+  useEffect(() => {
+    async function getData() {
+      let responseData;
+      await axios.get("http://localhost:8081/subcategories")
+        .then((response) => responseData = response.data);
+      fillSubCategoriesColumns(responseData);
+    }
+    getData();
+  }, []);
+  const fillSubCategoriesColumns = (data) => {
+    let counter = 0;
+    let categoryList = [];
+    data.forEach(category => {
+      counter++;
+      categoryList.push(
+        <a key={counter} className="dropdown-item" > {category.name}</a>
+      )
+    });
+    setSubcategory(categoryList);
+  }
+
+
+  //UserManager.js<a className="dropdown-item" href="#">Action</a>
+
   return (
     <div>
       {/*navbar*/}
@@ -153,16 +181,13 @@ function ProductManager() {
                 <div className="input-group-prepend">
                   <button className="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">Subcategoria</button>
                   <div className="dropdown-menu">
-                    <a className="dropdown-item" href="#">Action</a>
-                    <a className="dropdown-item" href="#">Another action</a>
-                    <a className="dropdown-item" href="#">Something else here</a>
+                    {subcategory}
                     <div role="separator" className="dropdown-divider" />
-                    <a className="dropdown-item" href="#">Separated link</a>
+
                   </div>
                 </div>
               </div>
               {/**date  */}
-
               {/**image  */}
               <div className="input-group mb-3">
                 <input type="file" className="form-control" placeholder="Search your picture..." aria-label="Recipient's username" aria-describedby="button-addon2" />

@@ -39,9 +39,7 @@ function Login(props) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-
                 token: googleData.tokenId,
-
             }
         );
         /*const res = await fetch('/api/google-login', {
@@ -53,12 +51,16 @@ function Login(props) {
             'Content-Type': 'application/json',
         },
         });*/
-
-        const data = await res.rows;
         console.log("dataaa " + JSON.stringify(res.data))
+        const userid_ = +res.data.userid;
         //setLoginData(res.data);
-        localStorage.setItem('loginData', JSON.stringify(res.data));
-        history.push('/main');
+        const data = JSON.stringify(res.data);
+        localStorage.setItem('loginData', JSON.stringify(res.data)); //save to localstorage
+        //call create cart endpoint        
+        const res_cart = await axios.post("http://localhost:8081/createcart?userid=" + userid_);
+        localStorage.setItem('cartData', JSON.stringify(res_cart.data)); //save to localstorage
+        history.push('/main');  //i
+
     };
 
     return (

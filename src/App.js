@@ -23,6 +23,11 @@ function App() {
     setSc(scParam);
   }
 
+  const [it, setIt] = useState("");
+  const itFunction = (itParam) => {
+    setIt(itParam);
+  }
+
 
   //we pass the scFunction as property for all components 
   //we pass the sc as property only to itemList
@@ -30,13 +35,13 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route exact path="/main">
-          <MainPage scFunction={scFunction}/>
+          <MainPage scFunction={scFunction} />
         </Route>
         <Route exact path="/profile">
-          <UserProfile scFunction={scFunction}/>
+          <UserProfile scFunction={scFunction} />
         </Route>
         <Route exact path="/itemlist">
-          <ItemList scFunction={scFunction} sc={sc} />
+          <ItemList scFunction={scFunction} sc={sc} itFunction={itFunction} it={it} />
         </Route>
         <Route exact path="/productman">
           <ProductManager />
@@ -48,13 +53,13 @@ function App() {
           <Cart />
         </Route>
         <Route exact path="/itemview">
-          <ItemView />
+          <ItemView it={it} scFunction={scFunction} />
         </Route>
         <Route exact path="/login">
-          <Login scFunction={scFunction}/>
+          <Login scFunction={scFunction} />
         </Route>
         <Route exact path="/signup">
-          <Signup scFunction={scFunction}/>
+          <Signup scFunction={scFunction} />
         </Route>
         <Route path="*">
           <NoPage />
