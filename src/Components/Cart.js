@@ -15,11 +15,15 @@ function Cart(props) {
     const cartid = cartUserInfo.cartid;
 
     const [total, setTotal] = useState(0);
+    const [description, setDescription] = useState("");
 
     const history = useHistory();
     const handleOnClick = (totalVal) => {
-        console.log("the total is " + totalVal)
-        props.setPrice(totalVal);
+        const stateObj = {
+            total : total,
+            description : description
+        }
+        props.setPaypalDet(stateObj);
         history.push('/paypal');
     };
 
@@ -41,9 +45,19 @@ function Cart(props) {
         let tempTotal = 0;
         let counter = 0;
         let detailsList = [];
+        let tempDesc = "";
+        let isFirst = true;
         data.forEach(detail => {
             counter++;
             tempTotal = tempTotal + ((+detail.quantity) * (+detail.itemprice))
+            if(isFirst == true) {
+                tempDesc = tempDesc + detail.name;
+                isFirst = false;
+            }
+            else {
+                tempDesc = tempDesc + "," + detail.name
+            }
+            
             detailsList.push(
                 //
                 <div key={counter} className=" row " style={{ fontFamily: 'monospace' }}>
@@ -66,7 +80,8 @@ function Cart(props) {
                 </div>
             )
         });
-        setTotal(tempTotal)
+        setTotal(tempTotal);
+        setDescription(tempDesc);
         setDetails(detailsList);
     }
 

@@ -3,29 +3,40 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom"
 import Footer from "./Footer";
 import HeaderNavbar from "./HeaderNavbar";
+import axios from 'axios';
 const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 
 function PaypalPayiment(props) {
 
     
-    const [price, setPrice] = useState("0")
+    
+    
 
     const createOrder = (data, actions) => {
-        setPrice(props.price)
-        console.log("this is my price " + props.price)
+        console.log("obj state " + JSON.stringify(props.paypalDetail));
+        
         return actions.order.create({
             purchase_units: [
                 {
                     amount: {
-                        value: props.price+"",
+                        value: props.paypalDetail.total+"",
                     },
                 },
             ],
         });
     }
     const onApprove = (data, actions) => {
-        console.log(data)   
+        console.log(data)
+        const userid = JSON.parse(localStorage.getItem("loginData")).userid;
+        const cartid = JSON.parse(localStorage.getItem("cartData")).cartid;
+        const price = props.paypalDetail.total;
+        const description = props.paypalDetail.description;
+        console.log("my values " + userid + " " + cartid + " " + price + " " + description);
+        const query = `cartid=${cartid}&userid=${userid}&total=${price}&description=${description}`
+        console.log(query)
+        axios.post("http://localhost:8081/checkout?" + query);
         return actions.order.capture();
+
     }
 
     return (

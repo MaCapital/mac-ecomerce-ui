@@ -18,21 +18,25 @@ function UserProfile(props) {
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [role, setRole] = useState("")
-    
+    const [historyList, setHistoryList] = useState([]);
 
     useEffect(() => {
         async function getData() {
             let responseData;
-            const userInfo = JSON.parse( localStorage.getItem('loginData'))
+            const userInfo = JSON.parse(localStorage.getItem('loginData'))
             if (userInfo + "" != "undefined") {
                 console.log(userInfo)
                 const email = userInfo.email + "";
+                const userid = userInfo.userid + "";
                 await axios.get("http://localhost:8081/user?email=" + email)
                     .then((response) => responseData = response.data);
                 console.log(responseData[0]);
-                setName(responseData[0].username+"");
-                setEmail(responseData[0].email+"");
-                setRole(responseData[0].usertype + "" == "1" ? "Customer" : "Seller")
+                setName(responseData[0].username + "");
+                setEmail(responseData[0].email + "");
+                setRole(responseData[0].usertype + "" == "1" ? "Customer" : "Seller");
+                await axios.get("http://localhost:8081/checkout?userid=" + userid)
+                    .then((response) => responseData = response.data);
+                buildCheckoutHistory(responseData)
             }
             else {
                 console.log(userInfo)
@@ -40,6 +44,20 @@ function UserProfile(props) {
         }
         getData();
     }, []);
+
+    const buildCheckoutHistory = (responseData) => {
+        const historyListTemp = [];
+        responseData.forEach(checkout => {
+            historyListTemp.push(
+                <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                    <h6 className="mb-0">{(checkout.date+"").substring(0, 10)}</h6>
+                    <span className="text-secondary">{checkout.description}</span>
+                    <span >{checkout.total}$</span>
+                </li>
+            )
+        });
+        setHistoryList(historyListTemp);
+    }
 
     return (
         <div>
@@ -86,32 +104,7 @@ function UserProfile(props) {
                                             </div>
                                         </div>
                                         <hr />
-                                        <div className="row">
-                                            <div className="col-sm-3">
-                                                <h6 className="mb-0">Password</h6>
-                                            </div>
-                                            <input type="text" />
-                                        </div>
-                                        <hr />
-                                        <div className="row">
-                                            <div className="col-sm-3">
-                                                <h6 className="mb-0">New password</h6>
-                                            </div>
-                                            <input type="text" />
-                                        </div>
-                                        <hr />
-                                        <div className="row">
-                                            <div className="col-sm-3">
-                                                <h6 className="mb-0">Confirm new password</h6>
-                                            </div>
-                                            <input type="text" />
-                                        </div>
-                                        <hr />
-                                        <div className="row justify-content-center">
-                                            <div className="col-sm-3">
-                                                <button className="btn btn-dark btn-block">Save</button>
-                                            </div>
-                                        </div>
+                                        
                                     </div>
                                 </div>
 
@@ -138,26 +131,7 @@ function UserProfile(props) {
                                         Checkout History
                                     </h3>
                                     <ul className="list-group list-group-flush">
-                                        <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                            <h6 className="mb-0">10/08/2021</h6>
-                                            <span className="text-secondary">shoes</span>
-                                        </li>
-                                        <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                            <h6 className="mb-0">10/08/2021</h6>
-                                            <span className="text-secondary">pants</span>
-                                        </li>
-                                        <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                            <h6 className="mb-0">10/08/2021</h6>
-                                            <span className="text-secondary">shoes</span>
-                                        </li>
-                                        <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                            <h6 className="mb-0">10/08/2021</h6>
-                                            <span className="text-secondary">pants</span>
-                                        </li>
-                                        <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                            <h6 className="mb-0">10/08/2021</h6>
-                                            <span className="text-secondary">shoes</span>
-                                        </li>
+                                        {historyList}
                                     </ul>
                                 </div>
                             </div>

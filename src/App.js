@@ -29,9 +29,9 @@ function App() {
     setIt(itParam);
   }
 
-  const [paypalPrice, setPaypalPrice] = useState("0");
-  const setPrice = (price) => {
-    setPaypalPrice(price);
+  const [paypalDetail, setPaypalDetail] = useState({});
+  const setPaypalDet = (paypalDet) => {
+    setPaypalDetail(paypalDet);
   }
 
 
@@ -56,7 +56,7 @@ function App() {
           <UserManager />
         </Route>
         <Route exact path="/cart">
-          <Cart setPrice={setPrice}/>
+          <Cart setPaypalDet={setPaypalDet}/>
         </Route>
         <Route exact path="/itemview">
           <ItemView it={it} scFunction={scFunction} />
@@ -68,7 +68,7 @@ function App() {
           <Signup scFunction={scFunction} />
         </Route>
         <Route exact path="/paypal">
-          <PaypalPayiment scFunction={scFunction} price={paypalPrice}/>
+          <PaypalPayiment scFunction={scFunction} paypalDetail={paypalDetail}/>
         </Route>
         <Route path="*">
           <NoPage />
