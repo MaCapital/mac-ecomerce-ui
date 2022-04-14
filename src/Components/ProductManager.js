@@ -11,6 +11,7 @@ function ProductManager() {
   console.log(warehouseid);
   const [load, setLoad] = useState(0);
   const [subcategory, setSubcategory] = useState([]);
+  const [subCategoryMap, setSubCategoryMap] = useState({});
   const [product, setProduct] = useState([]);
 
   useEffect(() => {
@@ -34,12 +35,19 @@ function ProductManager() {
   const fillSubCategoriesColumns = (data) => {
     let counter = 0;
     let categoryList = [];
+    let categoryObj = {};
+
     data.forEach(category => {
+      //console.log("caaat0" + JSON.stringify(category))
       counter++;
+      let categoryName = category.name;
+      categoryObj[categoryName + ""] = category.subcategoryid;
       categoryList.push(
         <option key={counter} className="dropdown-item" > {category.name}</option>
       )
     });
+    console.log("this is my cat obj " + JSON.stringify(categoryObj))
+    setSubCategoryMap(categoryObj);
     setSubcategory(categoryList);
   }
   const fillItemsRows = (data) => {
@@ -100,6 +108,8 @@ function ProductManager() {
     console.log(image)
     const res_cartDetail = await axios.post("http://localhost:8081/addItem?name=" + name + "&unitprice=" + price + "&subcategoryid=" + subcategoryI + "&image=" + null + "&color=" + color + "&measure=" + measure + "&brand=" + brand + "&about=" + about + "&warehouse=" + warehouse);
     console.log(res_cartDetail)
+    const load_ = load + 1;
+    setLoad(load_);
   }
 
   const handleOnChangeName = async (event) => {
@@ -123,8 +133,8 @@ function ProductManager() {
     //console
   }
   const handleOnChangeSci = async (event) => {
-
-    setSubcategoryI(event.target.value);
+    console.log("ss before " + JSON.stringify(subCategoryMap))
+    setSubcategoryI(subCategoryMap[event.target.value + ""]);
 
     //console
   }
@@ -143,7 +153,7 @@ function ProductManager() {
     //console
   }
 
-  const restartAddItem = async () => {
+  const restartAddItem = () => {
     setName("");
     setSubcategoryI("");
     setPrice(0);
@@ -231,7 +241,7 @@ function ProductManager() {
                 <div className="input-group-prepend">
                   <span className="input-group-text">Price</span>
                 </div>
-                <input type="number" className="form-control" aria-label="Amount (to the nearest dollar)" placeholder='$' onChange={handleOnChangePrice} />
+                <input type="number" className="form-control" aria-label="Amount (to the nearest dollar)" placeholder={color} onChange={handleOnChangePrice} />
               </div>
               {/**subcatid */}
               <div className="input-group mb-3">
@@ -240,7 +250,8 @@ function ProductManager() {
                   <div className="input-group-prepend">
                     <span className="input-group-text">Select a Subcategory</span>
                   </div>
-                  <select class="form-control" id="exampleFormControlSelect1" onChange={handleOnChangeSci}>
+                  <select class="form-control" id="exampleFormControlSelect1" placeholder='Select' onChange={handleOnChangeSci}>
+                    <option className="dropdown-item text-white" > SELECT..</option>
                     {subcategory}
                   </select>
                 </div>
