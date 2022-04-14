@@ -108,6 +108,8 @@ function HeaderNavbar(props) {
 
     const handleLogout = () => {
         localStorage.removeItem('loginData');
+        localStorage.removeItem('cartData');
+
         //props.setLoginData(null);
         history.push('/main')
     };
@@ -230,7 +232,7 @@ function HeaderNavbar(props) {
                                 {isSeller == true ? (<><hr className="text-black-50" />
                                     <h4>Additional Settings</h4>
                                     <ul className="help_settings_modal" style={{ listStyle: 'none' }}>
-                                        <li><label data-dismiss="modal" className="text-dark" type="button" htmlFor>Administrator Options</label></li>
+
                                         <li><label data-dismiss="modal" className="text-dark" type="button" onClick={handleProductManager} htmlFor>Seller Options</label></li>
                                     </ul></>) : (<></>)}
                             </div>

@@ -6,8 +6,13 @@ import Footer from './Footer';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 function ProductManager() {
-
+  const warehouseUserInfo = JSON.parse(localStorage.getItem('loginData'));
+  const warehouseid = warehouseUserInfo.warehouseid;
+  console.log(warehouseid);
+  const [load, setLoad] = useState(0);
   const [subcategory, setSubcategory] = useState([]);
+  const [product, setProduct] = useState([]);
+
   useEffect(() => {
     async function getData() {
       let responseData;
@@ -15,22 +20,141 @@ function ProductManager() {
         .then((response) => responseData = response.data);
       fillSubCategoriesColumns(responseData);
     }
+    async function getDataWarehouse() {
+      let responseDataw;
+      await axios.get("http://localhost:8081/warehouseitem?wid=" + warehouseid)
+        .then((responsew) => responseDataw = responsew.data);
+      console.log(responseDataw)
+      fillItemsRows(responseDataw);
+    }
+    getDataWarehouse();
     getData();
-  }, []);
+  }, [load]);
+
   const fillSubCategoriesColumns = (data) => {
     let counter = 0;
     let categoryList = [];
     data.forEach(category => {
       counter++;
       categoryList.push(
-        <a key={counter} className="dropdown-item" > {category.name}</a>
+        <option key={counter} className="dropdown-item" > {category.name}</option>
       )
     });
     setSubcategory(categoryList);
   }
+  const fillItemsRows = (data) => {
+    let counter = 0;
+    let itemsList = [];
+    data.forEach(item_ => {
+      counter++;
+      itemsList.push(
+        <tr key={counter}>
+          <th scope="row">{counter}</th>
+          <td>{item_.brand}</td>
+          <td>{item_.name}</td>
+          <td>{item_.price}</td>
+          <td>{item_.date}</td>
+          <td>{item_.about}</td>
+          <td>
+            {/* Call to action buttons */}
+            <label className="text-danger " type="button" data-toggle="tooltip" data-placement="top" title="Delete" onClick={() => handleDelete(item_.itemid)} >Delete</label>
+          </td>
+        </tr>
+      )
+    });
+    setProduct(itemsList);
+  }
 
+  const handleDelete = async (itemidD) => {
+    const itemid = itemidD;
+    console.log('delete item' + itemid)
+    const res_itemDeleted = await axios.delete("http://localhost:8081/deleteitem?itemid=" + itemid);
+    console.log(res_itemDeleted);
+    const load_ = load + 1
+    setLoad(load_);
+  }
+
+  const [name, setName] = useState("");
+  const [subcategoryI, setSubcategoryI] = useState("");
+  const [price, setPrice] = useState(0);
+  const [image, setImage] = useState({});
+  const [color, setColor] = useState("");
+  const [measure, setMeasure] = useState("");
+  const [brand, setBrand] = useState("");
+  const [about, setAbout] = useState("");
 
   //UserManager.js<a className="dropdown-item" href="#">Action</a>
+
+  const userInfo = JSON.parse(localStorage.getItem('loginData'));
+  const warehouse = userInfo.warehouseid + "";
+  const handleAdd = async () => {
+    //const cartdetailid = detailid;
+    console.log(name)
+    console.log(price)
+    console.log(subcategoryI)
+    console.log(color)
+    console.log(measure)
+    console.log(brand)
+    console.log(about)
+    console.log(warehouse)
+    console.log(image)
+    const res_cartDetail = await axios.post("http://localhost:8081/addItem?name=" + name + "&unitprice=" + price + "&subcategoryid=" + subcategoryI + "&image=" + null + "&color=" + color + "&measure=" + measure + "&brand=" + brand + "&about=" + about + "&warehouse=" + warehouse);
+    console.log(res_cartDetail)
+  }
+
+  const handleOnChangeName = async (event) => {
+    setName(event.target.value);
+
+    //console
+  }
+  const handleOnChangePrice = async (event) => {
+    setPrice(event.target.value);
+
+    //console
+  }
+  const handleOnChangeAbout = async (event) => {
+    setAbout(event.target.value);
+
+    //console
+  }
+  const handleOnChangeMeasure = async (event) => {
+    setMeasure(event.target.value);
+
+    //console
+  }
+  const handleOnChangeSci = async (event) => {
+
+    setSubcategoryI(event.target.value);
+
+    //console
+  }
+  const handleOnChangeColor = async (event) => {
+    setColor(event.target.value);
+    //console
+  }
+
+
+  const handleOnChangeBrand = async (event) => {
+    setBrand(event.target.value);
+    //console
+  }
+  const handleOnChangeImage = async (event) => {
+    setImage(event.target.value);
+    //console
+  }
+
+  const restartAddItem = async () => {
+    setName("");
+    setSubcategoryI("");
+    setPrice(0);
+    setImage({});
+    setColor("");
+    setMeasure("");
+    setBrand("");
+    setAbout("");
+  }
+
+
 
   return (
     <div>
@@ -56,84 +180,18 @@ function ProductManager() {
                     <table className="table m-0">
                       <thead>
                         <tr>
-                          <th scope="col">#</th>
-                          <th scope="col">Code</th>
-                          <th scope="col">Name</th>
-                          <th scope="col">Date</th>
-                          <th scope="col" />
+                          <th scope="col">Nro</th>
+                          <th scope="col">Marca</th>
+                          <th scope="col">Nombre</th>
+                          <th scope="col"></th>
+                          <th scope="col">Fecha</th>
+                          <th scope="col">Descripcion</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <th scope="row">1</th>
-                          <td>00000</td>
-                          <td>shoes</td>
-                          <td>10/08/2021</td>
-                          <td>
-                            {/* Call to action buttons */}
-                            <ul className="list-inline m-0">
 
-                              <li className="list-inline-item">
-                                <button className="btn btn-dark " type="button" data-toggle="tooltip" data-placement="top" title="Edit">Edit</button>
-                              </li>
-                              <li className="list-inline-item">
-                                <button className="btn btn-danger " type="button" data-toggle="tooltip" data-placement="top" title="Delete">Delete</button>
-                              </li>
-                            </ul>
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row">2</th>
-                          <td>00000</td>
-                          <td>shoes</td>
-                          <td>10/08/2021</td>
-                          <td>
-                            {/* Call to action buttons */}
-                            <ul className="list-inline m-0">
+                        {product}
 
-                              <li className="list-inline-item">
-                                <button className="btn btn-dark " type="button" data-toggle="tooltip" data-placement="top" title="Edit">Edit</button>
-                              </li>
-                              <li className="list-inline-item">
-                                <button className="btn btn-danger " type="button" data-toggle="tooltip" data-placement="top" title="Delete">Delete</button>
-                              </li>
-                            </ul>
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row">3</th>
-                          <td>00000</td>
-                          <td>shoes</td>
-                          <td>10/08/2021</td>
-                          <td>
-                            {/* Call to action buttons */}
-                            <ul className="list-inline m-0">
-                              <li className="list-inline-item">
-                                <button className="btn btn-dark " type="button" data-toggle="tooltip" data-placement="top" title="Edit">Edit</button>
-                              </li>
-                              <li className="list-inline-item">
-                                <button className="btn btn-danger " type="button" data-toggle="tooltip" data-placement="top" title="Delete">Delete</button>
-                              </li>
-                            </ul>
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row">4</th>
-                          <td>00000</td>
-                          <td>shoes</td>
-                          <td>10/08/2021</td>
-                          <td>
-                            {/* Call to action buttons */}
-                            <ul className="list-inline m-0">
-                              <li className="list-inline-item">
-                                <button className="btn btn-dark " type="button" data-toggle="tooltip" data-placement="top" title="Edit">Edit</button>
-                              </li>
-                              <li className="list-inline-item">
-                                <button className="btn btn-danger " type="button" data-toggle="tooltip" data-placement="top" title="Delete">Delete</button>
-                              </li>
-                            </ul>
-                          </td>
-                        </tr>
                       </tbody>
                     </table>
                   </div>
@@ -160,13 +218,12 @@ function ProductManager() {
               </button>
             </div>
             <div className="modal-body">
-              {/**id */}
               {/**name  */}
               <div className="input-group mb-3">
                 <div className="input-group-prepend">
                   <span className="input-group-text" id="basic-addon1">Product name</span>
                 </div>
-                <input type="text" className="form-control" placeholder="Item's name" aria-label="Username" aria-describedby="basic-addon1" />
+                <input type="text" className="form-control" placeholder="Item's name" aria-label="Username" aria-describedby="basic-addon1" onChange={handleOnChangeName} />
               </div>
 
               {/**price  */}
@@ -174,61 +231,62 @@ function ProductManager() {
                 <div className="input-group-prepend">
                   <span className="input-group-text">Price</span>
                 </div>
-                <input type="text" className="form-control" aria-label="Amount (to the nearest dollar)" placeholder='$' />
+                <input type="number" className="form-control" aria-label="Amount (to the nearest dollar)" placeholder='$' onChange={handleOnChangePrice} />
               </div>
               {/**subcatid */}
               <div className="input-group mb-3">
-                <div className="input-group-prepend">
-                  <button className="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">Subcategoria</button>
-                  <div className="dropdown-menu">
-                    {subcategory}
-                    <div role="separator" className="dropdown-divider" />
 
+                <div class="form-group">
+                  <div className="input-group-prepend">
+                    <span className="input-group-text">Select a Subcategory</span>
                   </div>
+                  <select class="form-control" id="exampleFormControlSelect1" onChange={handleOnChangeSci}>
+                    {subcategory}
+                  </select>
                 </div>
+
+
               </div>
               {/**date  */}
               {/**image  */}
-              <div className="input-group mb-3">
-                <input type="file" className="form-control" placeholder="Search your picture..." aria-label="Recipient's username" aria-describedby="button-addon2" />
-                <div className="input-group-append">
-                  <button className="btn btn-outline-secondary" type="button" id="button-addon2">Upload</button>
-                </div>
+              <div className="input-group mb-3 ">
+                <label htmlFor="exampleFormControlFile1" className='text-dark'>Upload item image</label>
+                <input type="file" className="form-control-file" id="exampleFormControlFile1" onChange={handleOnChangeImage} />
               </div>
               {/**color  */}
               <div className="input-group mb-3">
                 <div className="input-group-prepend">
                   <span className="input-group-text">Color</span>
                 </div>
-                <input type="text" className="form-control" aria-label="Amount (to the nearest dollar)" placeholder='Color' />
+                <input type="text" className="form-control" aria-label="Amount (to the nearest dollar)" placeholder='Color' onChange={handleOnChangeColor} />
               </div>
               {/**measure  */}
               <div className="input-group mb-3">
                 <div className="input-group-prepend">
                   <span className="input-group-text">Size</span>
                 </div>
-                <input type="text" className="form-control" aria-label="Amount (to the nearest dollar)" placeholder='measure' />
+                <input type="text" className="form-control" aria-label="Amount (to the nearest dollar)" placeholder='measure' onChange={handleOnChangeMeasure} />
               </div>
               {/**brand  */}
               <div className="input-group mb-3">
                 <div className="input-group-prepend">
                   <span className="input-group-text">Brand</span>
                 </div>
-                <input type="text" className="form-control" aria-label="" placeholder='Brand' />
+                <input type="text" className="form-control" aria-label="" placeholder='Brand' onChange={handleOnChangeBrand} />
               </div>
               {/**about */}
               <div className="input-group mb-3">
                 <div className="input-group-prepend">
                   <span className="input-group-text">Description</span>
                 </div>
-                <textarea className="form-control" aria-label="With textarea" defaultValue={""} />
+                <textarea className="form-control" aria-label="With textarea" defaultValue={""} onChange={handleOnChangeAbout} />
               </div>
               {/**warehouse  */}
 
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" className="btn btn-success">Save changes</button>
+              <button type="restart" className="btn btn-secondary" data-dismiss="modal" onClick={restartAddItem}>Close</button>
+              <button type="button" className="btn btn-success" onClick={handleAdd}>Save</button>
             </div>
           </div>
         </div>

@@ -35,7 +35,6 @@ function ItemView(props) {
         const cartid = cartUserInfo.cartid;
         const res_cartDetail = await axios.post("http://localhost:8081/createcd?cartid=" + cartid + "&itemid=" + item.itemid + "&name=" + item.name + "&brand=" + item.brand + "&price=" + item.unitprice + "&quantity=" + quantity);
         console.log(res_cartDetail);
-
     }
 
     const handleOnChange = async (event) => {
