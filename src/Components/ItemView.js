@@ -15,6 +15,7 @@ function ItemView(props) {
     const [comment, setComment] = useState('');
     const [load, setLoad] = useState(0);
     const [commentsList, setCommentsList] = useState([]);
+    const [image, setImage] = useState("");
     useEffect(() => {
         console.log(props.it)
         async function getData() {
@@ -23,7 +24,17 @@ function ItemView(props) {
             await axios.get("http://localhost:8081/items?ids=" + props.it)
                 .then((response) => responseData = response.data);
             //console.log(responseData);
+
+            
+
+            //console.log("img",responseData);
             fillItem(responseData);
+            console.log(responseData)
+
+            let img;
+            await axios.get("http://localhost:8081/getimage?name=" + responseData[0].name)
+                .then((response) => img = response.data.image);
+            setImage(img);
         }
         async function getDataComments() {
             let responseDataw;
@@ -133,7 +144,7 @@ function ItemView(props) {
                                     <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
                                         <div className="carousel-inner">
                                             <div className="carousel-item active d-block">
-                                                <img src={require('../images/product.jpg')} className="img-fluid" alt="" />
+                                                {image == "" ? (<img src={require('../images/product.jpg')} className="img-fluid" alt="" />) : (<img src={image} className="img-fluid" alt="" style={{ width: "800px", height: "800px" }}/>)}
                                             </div>
 
                                         </div>

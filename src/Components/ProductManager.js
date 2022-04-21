@@ -5,6 +5,7 @@ import HeaderNavbar from './HeaderNavbar';
 import Footer from './Footer';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+
 function ProductManager() {
   const warehouseUserInfo = JSON.parse(localStorage.getItem('loginData'));
   const warehouseid = warehouseUserInfo.warehouseid;
@@ -13,6 +14,19 @@ function ProductManager() {
   const [subcategory, setSubcategory] = useState([]);
   const [subCategoryMap, setSubCategoryMap] = useState({});
   const [product, setProduct] = useState([]);
+  const [itemListObj, setItemListObj] = useState({});
+
+  const [name, setName] = useState("");
+  const [subcategoryI, setSubcategoryI] = useState("");
+  const [price, setPrice] = useState(0);
+  const [image, setImage] = useState("");
+  const [color, setColor] = useState("");
+  const [measure, setMeasure] = useState("");
+  const [brand, setBrand] = useState("");
+  const [about, setAbout] = useState("");
+  const [itemId, setItemId] = useState("");
+
+
 
   useEffect(() => {
     async function getData() {
@@ -53,7 +67,9 @@ function ProductManager() {
   const fillItemsRows = (data) => {
     let counter = 0;
     let itemsList = [];
+    let itemListObjTemp = {};
     data.forEach(item_ => {
+      itemListObjTemp[item_.itemid] = item_;
       counter++;
       itemsList.push(
         <tr key={counter}>
@@ -65,11 +81,17 @@ function ProductManager() {
           <td>{item_.about}</td>
           <td>
             {/* Call to action buttons */}
+            <label className="text-primary " type="button" data-placement="top" title="Delete" onClick={() => handleUpdate(item_)} data-toggle="modal" data-target="#myModalAdd2">Update</label>
+          </td>
+          <td>
+            {/* Call to action buttons */}
             <label className="text-danger " type="button" data-toggle="tooltip" data-placement="top" title="Delete" onClick={() => handleDelete(item_.itemid)} >Delete</label>
           </td>
         </tr>
       )
     });
+    console.log("listObj", itemListObjTemp);
+    setItemListObj(itemListObjTemp);
     setProduct(itemsList);
   }
 
@@ -82,14 +104,68 @@ function ProductManager() {
     setLoad(load_);
   }
 
-  const [name, setName] = useState("");
-  const [subcategoryI, setSubcategoryI] = useState("");
-  const [price, setPrice] = useState(0);
-  const [image, setImage] = useState({});
-  const [color, setColor] = useState("");
-  const [measure, setMeasure] = useState("");
-  const [brand, setBrand] = useState("");
-  const [about, setAbout] = useState("");
+  const handleUpdate = async (item) => {
+
+    setItemId(item.itemid);
+    setName(item.name);
+    setSubcategoryI("");
+    console.log("this is the price " + item.unitprice)
+    setPrice(item.unitprice);
+    setImage({});
+    setColor(item.color);
+    setMeasure(item.measure);
+    setBrand(item.brand);
+    setAbout(item.about);
+
+
+    //const itemid = itemidD;
+    //console.log('delete item' + itemid)
+    //const res_itemDeleted = await axios.delete("http://localhost:8081/deleteitem?itemid=" + itemid);
+    //console.log(res_itemDeleted);
+    //const load_ = load + 1
+    //setLoad(load_);
+  }
+
+  const handleSaveUpdate = async () => {
+
+
+    const objBody = {
+      itemid: itemId,
+      name: name,
+      subcategory: subcategoryI,
+      price: price,
+      image: image,
+      color: color,
+      measure: measure,
+      brand: brand,
+      about: about,
+    }
+
+    await axios.post("http://localhost:8081/updateitem", objBody)
+
+
+    setItemId("");
+    setName("");
+    setSubcategoryI("");
+    setPrice(0);
+    setImage({});
+    setColor("");
+    setMeasure("");
+    setBrand("");
+    setAbout("");
+
+    const load_ = load + 1
+    setLoad(load_);
+
+    //const itemid = itemidD;
+    //console.log('delete item' + itemid)
+    //const res_itemDeleted = await axios.delete("http://localhost:8081/deleteitem?itemid=" + itemid);
+    //console.log(res_itemDeleted);
+    //const load_ = load + 1
+    //setLoad(load_);
+  }
+
+
 
   //UserManager.js<a className="dropdown-item" href="#">Action</a>
 
@@ -106,9 +182,12 @@ function ProductManager() {
     console.log(about)
     console.log(warehouse)
     console.log(image)
-
     if (name != '' && price != 0 && subcategoryI != '' && color != '' && measure != '') {
       const res_cartDetail = await axios.post("http://localhost:8081/addItem?name=" + name + "&unitprice=" + price + "&subcategoryid=" + subcategoryI + "&image=" + null + "&color=" + color + "&measure=" + measure + "&brand=" + brand + "&about=" + about + "&warehouse=" + warehouse);
+      await axios.post("http://localhost:8081/saveimage", {
+        image64: image,
+        name: name
+      })
       console.log(res_cartDetail)
       const load_ = load + 1;
       setLoad(load_);
@@ -116,7 +195,6 @@ function ProductManager() {
     else {
       console.log('no add, there are empty fields')
     }
-
   }
 
   const handleOnChangeName = async (event) => {
@@ -155,12 +233,31 @@ function ProductManager() {
     setBrand(event.target.value);
     //console
   }
+
+  const getBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+      reader.readAsDataURL(file);
+    });
+  }
+
   const handleOnChangeImage = async (event) => {
-    setImage(event.target.value);
+    //console.log("my image ", event.target.files[0])
+
+    const file = event.target.files[0];
+    getBase64(file).then(base64 => {
+      setImage(base64);
+      console.log("file stored", base64);
+    });
+
+
     //console
   }
 
   const restartAddItem = () => {
+    setItemId("")
     setName("");
     setSubcategoryI("");
     setPrice(0);
@@ -185,7 +282,7 @@ function ProductManager() {
           <div className='pb-2'>
             <h1>List of Items</h1>
             <button className="btn btn-success " type="button"
-              data-placement="top" title="Edit" data-toggle="modal" data-target="#myModalAdd">Add Item</button>
+              data-placement="top" title="Edit" data-toggle="modal" data-target="#myModalAdd" onClick={restartAddItem}>Add Item</button>
 
           </div>
           <div className="row">
@@ -240,7 +337,7 @@ function ProductManager() {
                 <div className="input-group-prepend">
                   <span className="input-group-text" id="basic-addon1">Product name</span>
                 </div>
-                <input type="text" className="form-control" placeholder="Item's name" aria-label="Username" aria-describedby="basic-addon1" onChange={handleOnChangeName} />
+                <input type="text" className="form-control" placeholder={name} value={name} aria-label="Username" aria-describedby="basic-addon1" onChange={handleOnChangeName} />
               </div>
 
               {/**price  */}
@@ -248,7 +345,7 @@ function ProductManager() {
                 <div className="input-group-prepend">
                   <span className="input-group-text">Price</span>
                 </div>
-                <input type="number" className="form-control" aria-label="Amount (to the nearest dollar)" placeholder={color} onChange={handleOnChangePrice} />
+                <input type="number" className="form-control" aria-label="Amount (to the nearest dollar)" placeholder={price} value={price} onChange={handleOnChangePrice} />
               </div>
               {/**subcatid */}
               <div className="input-group mb-3">
@@ -276,41 +373,126 @@ function ProductManager() {
                 <div className="input-group-prepend">
                   <span className="input-group-text">Color</span>
                 </div>
-                <input type="text" className="form-control" aria-label="Amount (to the nearest dollar)" placeholder='Color' onChange={handleOnChangeColor} />
+                <input type="text" className="form-control" aria-label="Amount (to the nearest dollar)" placeholder={color} value={color} onChange={handleOnChangeColor} />
               </div>
               {/**measure  */}
               <div className="input-group mb-3">
                 <div className="input-group-prepend">
                   <span className="input-group-text">Size</span>
                 </div>
-                <input type="text" className="form-control" aria-label="Amount (to the nearest dollar)" placeholder='measure' onChange={handleOnChangeMeasure} />
+                <input type="text" className="form-control" aria-label="Amount (to the nearest dollar)" placeholder={measure} value={measure} onChange={handleOnChangeMeasure} />
               </div>
               {/**brand  */}
               <div className="input-group mb-3">
                 <div className="input-group-prepend">
                   <span className="input-group-text">Brand</span>
                 </div>
-                <input type="text" className="form-control" aria-label="" placeholder='Brand' onChange={handleOnChangeBrand} />
+                <input type="text" className="form-control" aria-label="" placeholder={brand} value={brand} onChange={handleOnChangeBrand} />
               </div>
               {/**about */}
               <div className="input-group mb-3">
                 <div className="input-group-prepend">
                   <span className="input-group-text">Description</span>
                 </div>
-                <textarea className="form-control" aria-label="With textarea" defaultValue={""} onChange={handleOnChangeAbout} />
+                <textarea className="form-control" aria-label="With textarea" value={about} onChange={handleOnChangeAbout} />
               </div>
               {/**warehouse  */}
 
             </div>
             <div className="modal-footer">
               <button type="restart" className="btn btn-secondary" data-dismiss="modal" onClick={restartAddItem}>Close</button>
-              <button type="button" className="btn btn-success" onClick={handleAdd}>Save</button>
+              <button type="button" className="btn btn-success" data-dismiss="modal" onClick={handleAdd}>Save</button>
             </div>
           </div>
         </div>
       </div>
-      {/*END MODAL - ALL*/}
-    </div >
+
+      <div className="modal" id="myModalAdd2" tabIndex={-1} role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalCenterTitle">Add a New Product</h5>
+              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div className="modal-body">
+              {/**name  */}
+              <div className="input-group mb-3">
+                <div className="input-group-prepend">
+                  <span className="input-group-text" id="basic-addon1">Product name</span>
+                </div>
+                <input type="text" className="form-control" placeholder={name} value={name} aria-label="Username" aria-describedby="basic-addon1" onChange={handleOnChangeName} />
+              </div>
+
+              {/**price  */}
+              <div className="input-group mb-3">
+                <div className="input-group-prepend">
+                  <span className="input-group-text">Price</span>
+                </div>
+                <input type="number" className="form-control" aria-label="Amount (to the nearest dollar)" placeholder={price} value={price} onChange={handleOnChangePrice} />
+              </div>
+              {/**subcatid */}
+              <div className="input-group mb-3">
+
+                <div class="form-group">
+                  <div className="input-group-prepend">
+                    <span className="input-group-text">Select a Subcategory</span>
+                  </div>
+                  <select class="form-control" id="exampleFormControlSelect1" placeholder='Select' onChange={handleOnChangeSci}>
+                    <option className="dropdown-item text-white" > SELECT..</option>
+                    {subcategory}
+                  </select>
+                </div>
+
+
+              </div>
+              {/**date  */}
+              {/**image  */}
+              <div className="input-group mb-3 ">
+                <label htmlFor="exampleFormControlFile1" className='text-dark'>Upload item image</label>
+                <input type="file" className="form-control-file" id="exampleFormControlFile1" onChange={handleOnChangeImage} />
+              </div>
+              {/**color  */}
+              <div className="input-group mb-3">
+                <div className="input-group-prepend">
+                  <span className="input-group-text">Color</span>
+                </div>
+                <input type="text" className="form-control" aria-label="Amount (to the nearest dollar)" placeholder={color} value={color} onChange={handleOnChangeColor} />
+              </div>
+              {/**measure  */}
+              <div className="input-group mb-3">
+                <div className="input-group-prepend">
+                  <span className="input-group-text">Size</span>
+                </div>
+                <input type="text" className="form-control" aria-label="Amount (to the nearest dollar)" placeholder={measure} value={measure} onChange={handleOnChangeMeasure} />
+              </div>
+              {/**brand  */}
+              <div className="input-group mb-3">
+                <div className="input-group-prepend">
+                  <span className="input-group-text">Brand</span>
+                </div>
+                <input type="text" className="form-control" aria-label="" placeholder={brand} value={brand} onChange={handleOnChangeBrand} />
+              </div>
+              {/**about */}
+              <div className="input-group mb-3">
+                <div className="input-group-prepend">
+                  <span className="input-group-text">Description</span>
+                </div>
+                <textarea className="form-control" aria-label="With textarea" value={about} onChange={handleOnChangeAbout} />
+              </div>
+              {/**warehouse  */}
+
+            </div>
+            <div className="modal-footer">
+              <button type="restart" className="btn btn-secondary" data-dismiss="modal" onClick={restartAddItem}>Close</button>
+              <button type="button" className="btn btn-success" data-dismiss="modal" onClick={handleSaveUpdate}>Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
   );
 }
 
