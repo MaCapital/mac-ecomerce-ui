@@ -8,7 +8,6 @@ import HeaderNavbar from './HeaderNavbar';
 import Footer from './Footer';
 function ItemList(props) {
 
-
     //const [items, setItems] = useState([]);
     const [column, setColumn] = useState([]);
     useEffect(() => {
@@ -41,7 +40,7 @@ function ItemList(props) {
         let row = [];
         data.forEach(item => {
             counter++;
-            row.push(<ItemWrapper name={item.name} price={item.unitprice} key={counter} id={item.itemid} itFunction={props.itFunction} />)
+            row.push(<ItemWrapper name={item.name} price={item.unitprice} key={counter} id={item.itemid} brand={item.brand} itFunction={props.itFunction} />)
             if (counter % 4 === 0) {
                 columns.push(
                     <div key={counter} className="container justify-content-center mt-100">
@@ -72,19 +71,19 @@ function ItemList(props) {
             {/** navbar */}
             <HeaderNavbar scFunction={props.scFunction} />
             {/*content-items-login-register,etc*/}
-            <div className>
+            < div className >
                 <div className="container bg-light pt-4">
                     <div>
-                        <h1 className='text-center' data-dismiss="modal">{props.sc}</h1>
+                        <h1 className='text-center' data-dismiss="modal">Our Products</h1>
                         {column}
 
                     </div>
                 </div>
-            </div>
+            </div >
 
             {/*footer*/}
-            <Footer />
-        </div>
+            < Footer />
+        </div >
     );
 }
 

@@ -1,9 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import '../App.css';
-import Logo from '../images/Icons/tropical-storm.svg'
+import Logo from '../images/Icons/power.svg'
 import Deliver from '../images/Icons/geo-alt-fill.svg'
-import Language from '../images/Icons/globe2.svg'
+import Language from '../images/Icons/question-circle.svg'
 import CartIcon from '../images/Icons/cart.svg'
 import AccountIcon from '../images/Icons/person-hearts.svg'
 import SearchIcon from '../images/Icons/share.svg'
@@ -35,10 +35,14 @@ function HeaderNavbar(props) {
         localStorage.getItem('loginData') + "" != "null" ? JSON.parse(localStorage.getItem('loginData')).usertype + "" == "2" ? true : false : false
     )
 
+    const [isDad, setIsDad] = useState(
+        localStorage.getItem('loginData') + "" != "null" ? JSON.parse(localStorage.getItem('loginData')).usertype + "" == "3" ? true : false : false
+    )
+
     const [isLogged, setIsLogged] = useState(
         localStorage.getItem('loginData') + "" != "null" ? true : false
     )
-
+    const [load, setLoad] = useState(0);
     useEffect(() => {
         async function getData() {
             let responseData;
@@ -50,7 +54,7 @@ function HeaderNavbar(props) {
         //
         setIsSeller(localStorage.getItem('loginData') + "" != "null" ? JSON.parse(localStorage.getItem('loginData')).usertype + "" == "2" ? true : false : false)
         setIsLogged(localStorage.getItem('loginData') + "" != "null" ? true : false)
-    }, []);
+    }, [load]);
     //*rendering categories 
     const fillCategoriesColumns = (data) => {
         let counter = 0;
@@ -109,7 +113,7 @@ function HeaderNavbar(props) {
     const handleLogout = () => {
         localStorage.removeItem('loginData');
         localStorage.removeItem('cartData');
-
+        setLoad(load + 1)
         //props.setLoginData(null);
         history.push('/main')
     };
@@ -133,38 +137,42 @@ function HeaderNavbar(props) {
     const handleProductManager = () => {
         history.push('/productman');
     }
-
+    const handleUserManager = () => {
+        history.push('/userman');
+    }
     const handleCart = () => {
         history.push('/cart')
+    }
+    const handleHelp = () => {
+        history.push('/help')
     }
     return (
         <>
             {/*navbar*/}
-            <div className="container-fluid">
-                <nav className="row navbar navbar-expand-md navbar-dark bg-dark pb-0">
+            <div className="container-fluid" id='navbar' >
+                <nav className="row navbar navbar-expand-md navbar-dark  pb-0" style={{ backgroundColor: 'black' }}>
                     <div className="container-fluid">
-                        <img type="button" onClick={handleMain} src={Logo} style={{ width: "50px", height: "50px" }} alt="" className="src col-1" />
+                        <img type="button" onClick={handleMain} src={Logo} style={{ width: "90px", height: "35px" }} alt="" className="src col-2" />
                         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon" />
                         </button>
                         <div className="collapse navbar-collapse" id="navbarCollapse">
-                            <ul className="navbar-nav me-auto mb-1 mb-md-0 p-2 col-2 justify-content-center text-center">
+                            <ul className="navbar-nav me-auto mb-1 mb-md-0 p-2 col-1 justify-content-center text-center">
                                 <li className="nav-item delivery">
-                                    <a className="nav-link active" aria-current="page" href="h">
-                                        <div>Delivery to</div>
-                                        <img src={Deliver} style={{ width: "50px", height: "25px" }} alt="" className="src" />
+                                    <a className="nav-link active" aria-current="page" href="#">
+                                        {/**<div>Delivery to</div> */}
+                                        <img src={Deliver} style={{ width: "50px", height: "25px" }} alt="#" className="" />
                                     </a>
                                 </li>
                             </ul>
-
                             {/**search box */}
-                            <div className="input-group mb-3">
+                            <div className="input-group mb-1">
                                 {/**text */}
                                 <input type="text" id="exporationtext" className="form-control" placeholder="Recipient's username"
                                     aria-label="you can search products here" aria-describedby="basic-addon2"
                                     onChange={handleChange} />
                                 {/** call to f... */}
-                                <div className="input-group-append">
+                                <div className="input-group-append ">
                                     <span className="input-group-text" id="basic-addon2">
                                         <img src={SearchIcon} type="submit" onClick={() => SearchBarOnClick(searchBar)} alt=""></img>
                                     </span>
@@ -174,7 +182,7 @@ function HeaderNavbar(props) {
                             <ul className="navbar-nav mx-2 mb-1 mb-md-0 p-2">
                                 <li className="nav-item">
                                     <label type="button" className="nav-item navbar-brand me-auto mb-2 mb-md-0 px-3 " >
-                                        <img src={Language} style={{ width: "30px", height: "30px" }} alt="" className="src" />
+                                        <img src={Language} style={{ width: "30px", height: "30px" }} alt="" className="src" onClick={handleHelp} />
                                     </label>
                                 </li>
                                 {isLogged == true ? (<li className="nav-item " onClick={handleUserLink}>
@@ -191,16 +199,17 @@ function HeaderNavbar(props) {
                         </div>
                     </div>
                 </nav>
-                <div className="row bg-dark">
-                    <div className="col-1 px-5 pt-0 pb-0 ">
+                <div className="row " style={{ backgroundColor: 'black' }} >
+                    <div className="col-1 px-5 pt-0 pb-0 " >
                         <label htmlFor type="button" className="col font-weight-light px-4" data-toggle="modal" data-target="#myModal2">ALL</label>
                     </div>
                     <div className="col-4 px-5 pt-0 pb-0">
-                        <label htmlFor type="button" className="col font-weight-light px-5" data-target="#">Today's deals</label>
+                        {/**<label htmlFor type="button" className="col font-weight-light px-5" data-target="#">Today's deals</label> */}
                     </div>
                 </div>
             </div>
             {/*end navbar*/}
+
             {/*MODAL - ALL*/}
             <div className="modal fade" id="myModal2" tabIndex={-1} role="dialog" aria-labelledby="myModalLabel2">
                 <div className="modal-dialog" role="document">
@@ -227,6 +236,7 @@ function HeaderNavbar(props) {
                                     <li><label type="button" className="text-dark" htmlFor data-dismiss="modal" onClick={handleLogin}>Login</label></li>
                                     <li><label type="button" className="text-dark" htmlFor data-dismiss="modal" onClick={handleRegister}>Register</label></li>
                                     <li><label type="button" className="text-dark" htmlFor onClick={handleLogout} data-dismiss="modal">Sign out</label></li>
+                                    <li><label type="button" className="text-dark" htmlFor onClick={handleHelp} data-dismiss="modal">Help</label></li>
                                 </ul>
 
                                 {isSeller == true ? (<><hr className="text-black-50" />
@@ -234,6 +244,12 @@ function HeaderNavbar(props) {
                                     <ul className="help_settings_modal" style={{ listStyle: 'none' }}>
 
                                         <li><label data-dismiss="modal" className="text-dark" type="button" onClick={handleProductManager} htmlFor>Seller Options</label></li>
+                                    </ul></>) : (<></>)}
+                                {isDad == true ? (<><hr className="text-black-50" />
+                                    <h4>Super Settings</h4>
+                                    <ul className="help_settings_modal" style={{ listStyle: 'none' }}>
+
+                                        <li><label data-dismiss="modal" className="text-dark" type="button" onClick={handleUserManager} htmlFor>Users Options</label></li>
                                     </ul></>) : (<></>)}
                             </div>
                         </div>

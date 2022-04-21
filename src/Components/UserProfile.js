@@ -50,7 +50,7 @@ function UserProfile(props) {
         responseData.forEach(checkout => {
             historyListTemp.push(
                 <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                    <h6 className="mb-0">{(checkout.date+"").substring(0, 10)}</h6>
+                    <h6 className="mb-0">{(checkout.date + "").substring(0, 10)}</h6>
                     <span className="text-secondary">{checkout.description}</span>
                     <span >{checkout.total}$</span>
                 </li>
@@ -67,7 +67,7 @@ function UserProfile(props) {
             {/*content-items-login-register,etc*/}
 
 
-            <div style={{ height: "550px" }}>
+            <div style={{}}>
                 <div className="container mt-4">
                     <h6 className="display-4 text-center pb-0 pt-1">USER PROFILE</h6>
                     <div className="main-body">
@@ -75,7 +75,7 @@ function UserProfile(props) {
                         <div className="row gutters-sm">
 
                             <div className="col-md-7">
-                                <div className="card mb-3" style={{ height: "100%" }}>
+                                <div className="card mb-3" style={{}}>
                                     <div className="card-body">
                                         <div className="row">
                                             <div className="col-sm-3">
@@ -104,13 +104,9 @@ function UserProfile(props) {
                                             </div>
                                         </div>
                                         <hr />
-                                        
+
                                     </div>
                                 </div>
-
-
-
-
                             </div>
                             <div className="col-md-5 mb-3">
                                 <div className="card">
@@ -126,15 +122,17 @@ function UserProfile(props) {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="card mt-3">
-                                    <h3 className='text-center'>
-                                        Checkout History
-                                    </h3>
-                                    <ul className="list-group list-group-flush">
-                                        {historyList}
-                                    </ul>
-                                </div>
+
                             </div>
+
+                        </div>
+                        <div className="card mt-3 mb-5">
+                            <h3 className='text-center'>
+                                Checkout History
+                            </h3>
+                            <ul className="list-group list-group-flush">
+                                {historyList}
+                            </ul>
                         </div>
                     </div>
                 </div>

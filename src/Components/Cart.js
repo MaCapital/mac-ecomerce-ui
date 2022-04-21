@@ -7,6 +7,7 @@ import Footer from './Footer';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import Back from '../images/Icons/chevron-left.svg'
 function Cart(props) {
 
     const cartUserInfo = JSON.parse(localStorage.getItem('cartData'));
@@ -105,10 +106,9 @@ function Cart(props) {
         setDescription(tempDesc);
         setDetails(detailsList);
     }
-
-
-
-
+    const goBack = () => {
+        history.goBack();
+    }
     return (
         <div>
             {/*navbar*/}
@@ -116,7 +116,11 @@ function Cart(props) {
             {/*end navbar*/}
             {/*content-items-login-register,etc*/}
             <div className='container'>
+                <label type='button' title="Go back">
+                    <img src={Back} onClick={goBack} style={{ width: "50px", height: "50px" }} alt="" className="src pt-3" />
+                </label>
                 <div className="container bg-white pl-5 pr-5 mb-5 mt-3 pb-5">
+
                     <h6 className="display-4 text-center pb-0 pt-1">CART</h6>
                     <br />
                     <div className="row pt-1">

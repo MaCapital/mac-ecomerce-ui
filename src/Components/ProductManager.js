@@ -106,10 +106,17 @@ function ProductManager() {
     console.log(about)
     console.log(warehouse)
     console.log(image)
-    const res_cartDetail = await axios.post("http://localhost:8081/addItem?name=" + name + "&unitprice=" + price + "&subcategoryid=" + subcategoryI + "&image=" + null + "&color=" + color + "&measure=" + measure + "&brand=" + brand + "&about=" + about + "&warehouse=" + warehouse);
-    console.log(res_cartDetail)
-    const load_ = load + 1;
-    setLoad(load_);
+
+    if (name != '' && price != 0 && subcategoryI != '' && color != '' && measure != '') {
+      const res_cartDetail = await axios.post("http://localhost:8081/addItem?name=" + name + "&unitprice=" + price + "&subcategoryid=" + subcategoryI + "&image=" + null + "&color=" + color + "&measure=" + measure + "&brand=" + brand + "&about=" + about + "&warehouse=" + warehouse);
+      console.log(res_cartDetail)
+      const load_ = load + 1;
+      setLoad(load_);
+    }
+    else {
+      console.log('no add, there are empty fields')
+    }
+
   }
 
   const handleOnChangeName = async (event) => {

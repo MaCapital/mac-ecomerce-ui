@@ -7,6 +7,7 @@ import Cart from "./Components/Cart";
 import UserProfile from "./Components/UserProfile";
 import ProductManager from "./Components/ProductManager";
 import UserManager from "./Components/UserManager";
+import Help from "./Components/Help";
 
 import Login from "./Components/Login.js";
 import Signup from "./Components/Signup.js";
@@ -41,7 +42,7 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route exact path="/main">
-          <MainPage scFunction={scFunction} />
+          <MainPage scFunction={scFunction} itFunction={itFunction} it={it} />
         </Route>
         <Route exact path="/profile">
           <UserProfile scFunction={scFunction} />
@@ -56,7 +57,7 @@ function App() {
           <UserManager />
         </Route>
         <Route exact path="/cart">
-          <Cart setPaypalDet={setPaypalDet}/>
+          <Cart setPaypalDet={setPaypalDet} />
         </Route>
         <Route exact path="/itemview">
           <ItemView it={it} scFunction={scFunction} />
@@ -68,7 +69,10 @@ function App() {
           <Signup scFunction={scFunction} />
         </Route>
         <Route exact path="/paypal">
-          <PaypalPayiment scFunction={scFunction} paypalDetail={paypalDetail}/>
+          <PaypalPayiment scFunction={scFunction} paypalDetail={paypalDetail} />
+        </Route>
+        <Route path="/help">
+          <Help />
         </Route>
         <Route path="*">
           <NoPage />

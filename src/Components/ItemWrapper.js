@@ -9,22 +9,20 @@ function ItemWrapper(props) {
         let itemid_ = itemid;
         props.itFunction(itemid_);
         history.push('/itemView');
-
     }
-
     return (
         <div className="col-md-3">
             <div className="product-wrapper mb-45 text-center">
                 <div className="product-img">
-                    <a href="#" data-abc="true">
+                    <label data-abc="true">
                         <img src="https://i.imgur.com/tL7ZE46.jpg" alt="" onClick={() => ItemOnClick(props.id)} />
-                    </a>
+                    </label>
                     <span className="text-center">
                         <i className="fa fa-rupee" /> {props.price}
                     </span>
                     <div className="product-action">
                         <div className="product-action-style">
-                            <a href="#"> {props.id}</a> <a href="#">
+                            <a href="#"> {props.brand}</a> <a href="#">
                                 <i className="fa fa-heart" />
                             </a> <a href="#">
                                 <i className="fa fa-shopping-cart" />
